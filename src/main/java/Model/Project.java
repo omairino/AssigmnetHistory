@@ -6,13 +6,13 @@ public class Project {
 	private int id;
 	private String name;
 	private String description;
-	private int projectId;
+	private int projectID;
 	public Project(int id, String name, String description, int projectId) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.projectId = projectId;
+		this.projectID = projectId;
 	}
 	public int getId() {
 		return id;
@@ -32,11 +32,11 @@ public class Project {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getProjectId() {
-		return projectId;
+	public int getProjectID() {
+		return projectID;
 	}
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setProjectID(int projectId) {
+		this.projectID = projectId;
 	}
 	
 }

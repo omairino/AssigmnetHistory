@@ -14,32 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import DAO.AssignemtsCollection;
 import DAO.AssignmentHistoryFakeDAO;
-import Model.AssignmentHistory;
+import Model.Assignment;
+
 
 @RestController
-@RequestMapping("/AssimentHistory")
+@RequestMapping("/assignments")
 public class AssignmentHistoryController {
 	
+
 	@GetMapping("")
-	public @ResponseBody List<AssignmentHistory> all(){
-		try {
-			return  new ArrayList<AssignmentHistory>(AssignmentHistoryFakeDAO.getinstance().findAll());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
-		return null;
-	}
-	@GetMapping("/{id}")
-	public @ResponseBody AssignmentHistory byid(@PathVariable int id) {
-//		return MovieDAO.getinstance().find(id);
+	public @ResponseBody List<Assignment> byid(@PathVariable int id) {
+		AssignmentHistoryFakeDAO assignment = new AssignmentHistoryFakeDAO();
+		return assignment.getAllItems();
 	}
 	
-	@PostMapping("")
-	public String newAssignmentHistory(@RequestBody AssignmentHistory movie) {
-//		boolean isOK = movies.add(movie);
-//		return new Boolean(isOK).toString();
-	}
+
 
 }
