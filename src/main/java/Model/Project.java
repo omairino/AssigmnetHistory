@@ -1,8 +1,10 @@
 package Model;
 
 
+import java.util.Objects;
 
 public class Project {
+<<<<<<< HEAD
 	private int id;
 	private String name;
 	private String description;
@@ -39,4 +41,64 @@ public class Project {
 		this.projectID = projectId;
 	}
 	
+=======
+    private int id;
+    private String name;
+    private String description;
+    private int projectId;
+
+    public Project(int id, String name, String description, int projectId) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.projectId = projectId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id == project.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+>>>>>>> amjad
 }
