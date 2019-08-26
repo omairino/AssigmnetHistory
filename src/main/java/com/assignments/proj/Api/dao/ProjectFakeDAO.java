@@ -1,7 +1,7 @@
 package com.assignments.proj.Api.DAO;
 
 import java.util.Arrays;
-import java.util.Date;
+
 import java.util.List;
 
 import com.assignments.proj.Api.Model.Assignment;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 public class ProjectFakeDAO implements ProjectCollection<Project>{
 	private List<Project> project = Arrays.asList(
 			new Project(1,"Vodaphone","Java,Html,Css"),
-			new Project(1,"Hotmobile","Python,Css"),
-			new Project(1,"Cellcom","C++,Css"),
-			new Project(1,"Bezeq","Java,Css")
+			new Project(2,"Hotmobile","Python,Css"),
+			new Project(3,"Cellcom","C++,Css"),
+			new Project(4,"Bezeq","Java,Css")
 			);
 
 	@Override
@@ -58,13 +58,14 @@ public class ProjectFakeDAO implements ProjectCollection<Project>{
 
 	@Override
 	public Project find(int id) {
-		for(Project p : this.project) {
+		for(Project p : project) {
 			if(p.getId() == id) {
 				return p;
 			}
 		}
+		
 		// TODO Auto-generated method stub
-		return null;
+		return project.get(1);
 	}
 
 
