@@ -42,7 +42,7 @@ public class ProjectFakeDAO implements ProjectCollection<Project>{
 
 		if (index >= 0){
 			temp = project.get(index);
-			project.copy(temp, item);
+			Project.copy(temp, item);
 		
 			return temp;
 		}
@@ -58,6 +58,11 @@ public class ProjectFakeDAO implements ProjectCollection<Project>{
 
 	@Override
 	public Project find(int id) {
+		for(Project p : this.project) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
