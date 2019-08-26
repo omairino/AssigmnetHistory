@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.assignments.proj.Api.Model.Assignment;
+import com.assignments.proj.Api.Model.Project;
 
 
 @Service
@@ -133,6 +134,18 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 				.limit(limit)
 				.collect(Collectors.toList()))
 				.orElse(null);
+	}
+
+
+	@Override
+	public Assignment find(int id) {
+		for(Assignment p : this.assignments) {
+			if(p.getId() == id) {
+				return p;
+			}
+		}
+		
+		return null;
 	}
 
 }

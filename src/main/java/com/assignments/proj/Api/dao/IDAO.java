@@ -9,6 +9,7 @@ public interface IDAO<T>{
     T insert(T item);
     T update(T item);
     T delete(T item);
-    int numberOfPages(int id, int limit);
+    T find(int id);
+    
 
 }
