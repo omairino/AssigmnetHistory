@@ -10,7 +10,7 @@ import Model.AssignmentHistory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AssignmentHistoryDAO implements AssignemtsCollection<AssignmentHistory>{
+public class AssignmentHistoryFakeDAO implements AssignemtsCollection<AssignmentHistory>{
 	private List<AssignmentHistory> AssignmentHistorys = Arrays.asList(
 			new AssignmentHistory(1,1, 1, "Asn 1"
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"),

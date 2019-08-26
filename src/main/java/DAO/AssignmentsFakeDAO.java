@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class AssignmentsDAO implements AssignemtsCollection<Assignment>{
+public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 
 	private List<Assignment> assignments = Arrays.asList(
 			new Assignment(1,1, 1, "Asn 1"
