@@ -1,21 +1,21 @@
-package Model;
+package com.assignments.proj.Api.model;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class AssignmentHistory {
+public class Assignment {
 
 	private int id;
 	private int employeeID;
 	private int projectID;
 	private String name;
-	private java.util.Date startDate;
-	private java.util.Date endDate;
+	private Date startDate;
+	private Date endDate;
 	private String status;
 	private String requestedBy;  // manager name
 
 
-	public AssignmentHistory(int id, int employeeID, int projectID, String name, java.util.Date startDate, java.util.Date endDate, String status, String requestedBy) {
+	public Assignment(int id, int employeeID, int projectID, String name, Date startDate, Date endDate, String status, String requestedBy) {
 		this.id = id;
 		this.employeeID = employeeID;
 		this.projectID = projectID;
@@ -26,7 +26,7 @@ public class AssignmentHistory {
 		this.requestedBy = requestedBy;
 	}
 
-	public static void copy(AssignmentHistory temp, AssignmentHistory item) {
+	public static void copy(Assignment temp, Assignment item) {
 
 		temp.setEndDate(item.startDate);
 		temp.setEndDate(item.endDate);
@@ -67,15 +67,15 @@ public class AssignmentHistory {
 		this.name = name;
 	}
 
-	public java.util.Date getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(java.util.Date startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public java.util.Date getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
@@ -103,7 +103,7 @@ public class AssignmentHistory {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		AssignmentHistory that = (AssignmentHistory) o;
+		Assignment that = (Assignment) o;
 		return id == that.id;
 	}
 
@@ -111,6 +111,5 @@ public class AssignmentHistory {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
-
 }
+

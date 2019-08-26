@@ -1,14 +1,12 @@
-package DAO;
+package com.assignments.proj.Api.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import Model.AssignmentHistory;
-import Model.Project;
+import com.assignments.proj.Api.model.Project;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProjectFakeDAO  implements IDAO<Project>{
+public class ProjectFakeDAO implements IDAO<Project>{
 	private List<Project> project;
 
 	public ProjectFakeDAO(List<Project> project) {
@@ -16,10 +14,9 @@ public class ProjectFakeDAO  implements IDAO<Project>{
 		this.project = project;
 	}
 
-
 	@Override
 	public List<Project> getAllItems() {
-		return null;
+		return project;
 	}
 
 	@Override
@@ -41,4 +38,10 @@ public class ProjectFakeDAO  implements IDAO<Project>{
 	public int numberOfPages(int id, int limit) {
 		return 0;
 	}
+
+
+
+
+
+
 }

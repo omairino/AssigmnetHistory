@@ -1,9 +1,10 @@
-package Model;
+package com.assignments.proj.Api.model;
 
 
 import java.util.Objects;
 
 public class Project {
+
     private int id;
     private String name;
     private String description;
@@ -62,4 +63,5 @@ public class Project {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }
