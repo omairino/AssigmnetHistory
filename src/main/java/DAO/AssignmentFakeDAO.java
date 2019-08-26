@@ -8,42 +8,42 @@ import Model.AssignmentHistory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AssignmentFakeDAO implements IDAO<Assignment>{
-	private List<Assignment> assignment;
-	public AssignmentFakeDAO(List<Assignment> assignment) {
-		super();
-		this.assignment = assignment;
-	}
+public class AssignmentFakeDAO implements AssignemtsCollection{
 
 	@Override
-	public List<Assignment> findAll() throws SQLException {
+	public List<Assignment> getAllItems() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Assignment find(int id) throws SQLException {
+	public Assignment insert(Assignment item) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Assignment add(Assignment item) throws SQLException {
+	public Assignment update(Assignment item) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Assignment update(Assignment item) throws SQLException {
+	public Assignment delete(Assignment item) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Assignment delete(int item) throws SQLException {
+	public int numberOfPages(int id, int limit) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 }
