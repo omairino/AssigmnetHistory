@@ -1,68 +1,115 @@
 package Model;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Objects;
 
 public class AssignmentHistory {
-	
+
 	private int id;
+	private int employeeID;
+	private int projectID;
 	private String name;
-	private int employeeId;
-	private int projectId;
-	private Date startDate;
-	private Date endDate;
-	private boolean statusRequest;
-	public AssignmentHistory(int id, String name, int employeeId, int projectId, Date startDate, Date endDate,
-			boolean statusRequest) {
-		super();
+	private java.util.Date startDate;
+	private java.util.Date endDate;
+	private String status;
+	private String requestedBy;  // manager name
+
+
+	public AssignmentHistory(int id, int employeeID, int projectID, String name, java.util.Date startDate, java.util.Date endDate, String status, String requestedBy) {
 		this.id = id;
+		this.employeeID = employeeID;
+		this.projectID = projectID;
 		this.name = name;
-		this.employeeId = employeeId;
-		this.projectId = projectId;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.statusRequest = statusRequest;
+		this.status = status;
+		this.requestedBy = requestedBy;
 	}
+
+	public static void copy(AssignmentHistory temp, AssignmentHistory item) {
+
+		temp.setEndDate(item.startDate);
+		temp.setEndDate(item.endDate);
+		temp.setStatus(item.status);
+		temp.setRequestedBy(item.requestedBy);
+
+	}
+
+	public int getProjectID() {
+		return projectID;
+	}
+
+	public void setProjectID(int projectID) {
+		this.projectID = projectID;
+	}
+
+	public int getEmployeeID() {
+		return employeeID;
+	}
+
+	public void setEmployeeID(int employeeID) {
+		this.employeeID = employeeID;
+	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
-	}
-	public int getProjectId() {
-		return projectId;
-	}
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
-	public Date getStartDate() {
+
+	public java.util.Date getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+
+	public void setStartDate(java.util.Date startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+
+	public java.util.Date getEndDate() {
 		return endDate;
 	}
+
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public boolean isStatusRequest() {
-		return statusRequest;
+
+	public String getStatus() {
+		return status;
 	}
-	public void setStatusRequest(boolean statusRequest) {
-		this.statusRequest = statusRequest;
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getRequestedBy() {
+		return requestedBy;
+	}
+
+	public void setRequestedBy(String requestedBy) {
+		this.requestedBy = requestedBy;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		AssignmentHistory that = (AssignmentHistory) o;
+		return id == that.id;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 	
 

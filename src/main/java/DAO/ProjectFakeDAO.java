@@ -16,34 +16,29 @@ public class ProjectFakeDAO  implements IDAO<Project>{
 		this.project = project;
 	}
 
+
 	@Override
-	public List<Project> findAll() throws SQLException {
-		// TODO Auto-generated method stub
+	public List<Project> getAllItems() {
 		return null;
 	}
 
 	@Override
-	public Project find(int id) throws SQLException {
-		// TODO Auto-generated method stub
+	public Project insert(Project item) {
 		return null;
 	}
 
 	@Override
-	public Project add(Project item) throws SQLException {
-		// TODO Auto-generated method stub
+	public Project update(Project item) {
 		return null;
 	}
 
 	@Override
-	public Project update(Project item) throws SQLException {
-		// TODO Auto-generated method stub
+	public Project delete(Project item) {
 		return null;
 	}
 
 	@Override
-	public Project delete(int item) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public int numberOfPages(int id, int limit) {
+		return 0;
 	}
-
 }
