@@ -135,4 +135,10 @@ public class AssignmentHistoryFakeDAO implements AssignemtsCollection<Assignment
 				.collect(Collectors.toList()))
 				.orElse(null);
 	}
+
+	@Override
+	public AssignmentHistory find(int item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
