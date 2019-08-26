@@ -1,4 +1,4 @@
-package com.assignments.proj.Api.dao;
+package com.assignments.proj.Api.DAO;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
 
-import com.assignments.proj.Api.model.Assignment;
+import com.assignments.proj.Api.Model.Assignment;
 
 
-//@Service
+@Service
 public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 
 	private List<Assignment> assignments = Arrays.asList(
@@ -60,12 +61,11 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"));
 
 
-	@Override
 	public List<Assignment> getAllItems() {
 		return assignments;
 	}
 
-	@Override
+
 	public Assignment insert(Assignment item) {
 		//if the assignment doesn't exist add it and return the assignment with the generated id,
 		// else return null
@@ -82,7 +82,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 	 * @param @Assignment to update
 	 * @return updated assignment
 	 */
-	@Override
+	
 	public Assignment update(Assignment item) {
 		// look for the assignment by index, if found update it and return it
 		// else return null
@@ -99,7 +99,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 		return null;
 	}
 
-	@Override
+	
 	public Assignment delete(Assignment item) {
 		// if removal was successful return the deleted assignment
 		// else return null
@@ -109,7 +109,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 		return null;
 	}
 
-	@Override
+	
 	public int numberOfPages(int id, int limit) {
 		// find all the assignments for some employeee
 		// devide the results found by the limit to get page number

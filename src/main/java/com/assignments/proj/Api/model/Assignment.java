@@ -1,4 +1,4 @@
-package com.assignments.proj.Api.model;
+package com.assignments.proj.Api.Model;
 
 import java.util.Date;
 import java.util.Objects;

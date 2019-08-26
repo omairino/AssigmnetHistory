@@ -1,8 +1,8 @@
-package com.assignments.proj.Api.dao;
+package com.assignments.proj.Api.DAO;
 
 import java.util.List;
 
-import com.assignments.proj.Api.model.Project;
+import com.assignments.proj.Api.Model.Project;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,27 +14,22 @@ public class ProjectFakeDAO implements IDAO<Project>{
 		this.project = project;
 	}
 
-	@Override
 	public List<Project> getAllItems() {
 		return project;
 	}
 
-	@Override
 	public Project insert(Project item) {
 		return null;
 	}
 
-	@Override
 	public Project update(Project item) {
 		return null;
 	}
 
-	@Override
 	public Project delete(Project item) {
 		return null;
 	}
 
-	@Override
 	public int numberOfPages(int id, int limit) {
 		return 0;
 	}
