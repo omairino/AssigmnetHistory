@@ -1,4 +1,4 @@
-package DAO;
+package com.assignments.proj.Api.dao;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,10 +7,9 @@ import java.util.stream.Collectors;
 import java.util.Optional;
 
 
-import Model.AssignmentHistory;
-import org.springframework.stereotype.Service;
+import com.assignments.proj.Api.model.AssignmentHistory;
 
-@Service
+//@Service
 public class AssignmentHistoryFakeDAO implements AssignemtsCollection<AssignmentHistory>{
 	private List<AssignmentHistory> AssignmentHistorys = Arrays.asList(
 			new AssignmentHistory(1,1, 1, "Asn 1"

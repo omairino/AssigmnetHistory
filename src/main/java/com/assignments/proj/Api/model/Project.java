@@ -1,4 +1,4 @@
-package Model;
+package com.assignments.proj.Api.model;
 
 
 import java.util.Objects;

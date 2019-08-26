@@ -1,6 +1,5 @@
-package DAO;
+package com.assignments.proj.Api.dao;
 
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -8,12 +7,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-import Model.Assignment;
-import Model.AssignmentHistory;
-import org.springframework.stereotype.Service;
+import com.assignments.proj.Api.model.Assignment;
 
 
-@Service
+//@Service
 public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 
 	private List<Assignment> assignments = Arrays.asList(

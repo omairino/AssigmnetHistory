@@ -1,7 +1,5 @@
-package DAO;
+package com.assignments.proj.Api.dao;
 
-
-import Model.AssignmentHistory;
 
 import java.util.List;
 

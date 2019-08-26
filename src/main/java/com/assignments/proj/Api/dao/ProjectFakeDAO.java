@@ -1,10 +1,8 @@
-package DAO;
+package com.assignments.proj.Api.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import Model.AssignmentHistory;
-import Model.Project;
+import com.assignments.proj.Api.model.Project;
 import org.springframework.stereotype.Service;
 
 @Service
