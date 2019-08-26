@@ -8,7 +8,7 @@ import Model.AssignmentHistory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AssignmentFakeDAO implements AssignemtsCollection{
+public class AssignmentFakeDAO implements AssignemtsCollection<Assignment>{
 
 	@Override
 	public List<Assignment> getAllItems() {

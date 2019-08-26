@@ -4,44 +4,7 @@ package Model;
 import java.util.Objects;
 
 public class Project {
-<<<<<<< HEAD
-	private int id;
-	private String name;
-	private String description;
-	private int projectID;
-	public Project(int id, String name, String description, int projectId) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.projectID = projectId;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public int getProjectID() {
-		return projectID;
-	}
-	public void setProjectID(int projectId) {
-		this.projectID = projectId;
-	}
-	
-=======
+
     private int id;
     private String name;
     private String description;
@@ -100,5 +63,5 @@ public class Project {
     public int hashCode() {
         return Objects.hash(id);
     }
->>>>>>> amjad
+
 }
