@@ -40,9 +40,14 @@ public class AssignmentHistoryController {
 		else{
 			 a = assignmentHistory.getAssignmentsByUserID(empid,pageNumber,10);
 		}
-		JSONObject result= new JSONObject();
-		List<JSONObject>  json =  new ArrayList<JSONObject>()  ;
 		
+		JSONObject result= new JSONObject();
+		JSONObject message= new JSONObject();
+		List<JSONObject>  json =  new ArrayList<JSONObject>();
+		if(a.size() > 0) {
+			message.put("responseData", "True");
+			message.put("msg", "success");
+			
 		for(AssignmentHistory as : a) {
 			result.put("id", as.getId());
 			result.put("name", as.getName());
@@ -54,7 +59,16 @@ public class AssignmentHistoryController {
 			json.add(result);
 			result= new JSONObject();
 		}
-		return  json;
+		message.put("item", json);
+		
+		}
+		else {
+			message.put("responseData", "True");
+			message.put("msg", "No Item");
+			message.put("item", json);
+			
+		}
+		return  Arrays.asList(message);
 	}
 	
 
