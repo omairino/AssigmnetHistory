@@ -36,7 +36,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"),
 			new Assignment(10,1, 1, "Asn 10"
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"),
-			new Assignment(11,1, 1, "Asn 11"
+			new Assignment(11,2, 1, "Asn 11"
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"),
 			new Assignment(12,1, 1, "Asn 12"
 					, new Date(System.currentTimeMillis()), new Date(), "Approved","Tarik"),
