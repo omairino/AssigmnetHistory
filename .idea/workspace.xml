@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="dd0025d6-c34d-46ad-8913-caf0a1134276" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AssignmentFakeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AssignmentFakeDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AssignmentHistoryFakeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AssignmentHistoryFakeDAO.java" afterDir="false" />
@@ -9,6 +10,37 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Assignment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/AssignmentHistory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/AssignmentHistory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Project.java" afterDir="false" />
+=======
+    <list default="true" id="7edda6b1-9b6d-4a8e-ae09-0a2ef8ace172" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/controller/AssignmentHistoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/controller/AssignmentsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/dao/IDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/model/AssignmentHistory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApiMain/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/AssignmentsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AssignemtsCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/dao/AssignemtsCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AssignmentHistoryFakeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/dao/AssignmentHistoryFakeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AssignmentsFakeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/dao/AssignmentsFakeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/IDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/ProjectFakeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/dao/ProjectFakeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Assignment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/model/Assignment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/AssignmentHistory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/model/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ApiMain/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/AssignmentHistoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/AssignmentHistoryController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/AssignmentFakeDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/AssignmentFakeDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/AssignmentHistoryFakeDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/AssignmentHistoryFakeDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/IDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/IDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/DAO/ProjectFakeDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/DAO/ProjectFakeDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/com.assign/assignment/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/com.assign/assignment/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Assignment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Assignment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/AssignmentHistory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/AssignmentHistory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Project.class" afterDir="false" />
+>>>>>>> amjad
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,9 +54,9 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ApiMain/Main.java">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
@@ -32,6 +64,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Controller/AssignmentsController.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -204,15 +237,9 @@
           </provider>
         </entry>
       </file>
+=======
+>>>>>>> amjad
     </leaf>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Assignment</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>AssignmentHistory</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -220,6 +247,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/main/java/Controller/AssignmentHistoryController.java" />
         <option value="$PROJECT_DIR$/src/main/java/DAO/AssignemtsCollection.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/AssignmentsController.java" />
@@ -231,14 +259,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Model/Assignment.java" />
         <option value="$PROJECT_DIR$/src/main/java/DAO/AssignmentFakeDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model/Project.java" />
+=======
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> amjad
       </list>
-    </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="jdkForImporter" value="12" />
-      </MavenImportingSettings>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -252,6 +276,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -262,6 +288,11 @@
             <path>
               <item name="assignment" type="b2602c69:ProjectViewProjectNode" />
               <item name="AssigmnetHistory" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="assignment" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AssigmnetHistory" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -283,47 +314,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ApiMain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AssigmnetHistory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AssigmnetHistory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="DAO" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="assignment" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AssigmnetHistory" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
+              <item name="Api" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
-  </component>
-  <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="DAO" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -337,16 +334,24 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="assignmentsProj" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.assignments.proj.Api.Main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="dd0025d6-c34d-46ad-8913-caf0a1134276" name="Default Changelist" comment="" />
-      <created>1566817037457</created>
+      <changelist id="7edda6b1-9b6d-4a8e-ae09-0a2ef8ace172" name="Default Changelist" comment="" />
+      <created>1566824087799</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1566817037457</updated>
+      <updated>1566824087799</updated>
     </task>
     <servers />
   </component>
@@ -354,23 +359,24 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.5261669" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067025" side_tool="true" weight="0.32956153" />
       <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -382,6 +388,7 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/main/java/DAO/AssignemtsCollection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -557,6 +564,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="65" selection-start-line="65" selection-end-line="65" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/demo/DemoApplication.java" />
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="104" column="73" selection-start-line="104" selection-start-column="73" selection-end-line="104" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/assignments/proj/Api/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+>>>>>>> amjad
         </state>
       </provider>
     </entry>
