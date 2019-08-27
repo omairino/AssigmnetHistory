@@ -5,24 +5,38 @@ import java.util.Objects;
 
 public class Assignment {
     private int id;
-    private int employeeID;
-    private int projectID;
-    private String name;
+    private String projectName;
+    private String assignmentName;
     private Date startDate;
-    private Date endDate;
-    private String status;
-    private String requestedBy;  // manager name
 
-
-    public Assignment(int id, int employeeID, int projectID, String name, Date startDate, Date endDate, String status, String requestedBy) {
+    public Assignment(int id, String projectName, String assignmentName, Date startDate, Date endDate, String status, String requestedBy) {
         this.id = id;
-        this.employeeID = employeeID;
-        this.projectID = projectID;
-        this.name = name;
+        this.projectName = projectName;
+        this.assignmentName = assignmentName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
         this.requestedBy = requestedBy;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setAssignmentName(String assignmentName) {
+        this.assignmentName = assignmentName;
+    }
+
+    private Date endDate;
+    private String status;
+    private String requestedBy;// manager name
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getAssignmentName() {
+        return assignmentName;
     }
 
     public static void copy(Assignment temp, Assignment item) {
@@ -34,21 +48,7 @@ public class Assignment {
 
     }
 
-    public int getProjectID() {
-        return projectID;
-    }
 
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
-
-    public int getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
-    }
 
     public int getId() {
         return id;
@@ -58,13 +58,7 @@ public class Assignment {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Date getStartDate() {
         return startDate;
