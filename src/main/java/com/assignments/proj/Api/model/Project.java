@@ -8,23 +8,24 @@ public class Project {
     private int id;
     private String name;
     private String description;
- 
+
 
     public Project(int id, String name, String description) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-       
-    }
-    
-	public static void copy(Project temp, Project item) {
 
-		temp.setId(item.id);
-		temp.setName(item.name);
-		temp.setDescription(item.description);
-	
-	}
+    }
+
+    public static void copy(Project temp, Project item) {
+
+        temp.setId(item.id);
+        temp.setName(item.name);
+        temp.setDescription(item.description);
+
+    }
+
     public int getId() {
         return id;
     }
@@ -48,8 +49,6 @@ public class Project {
     public void setDescription(String description) {
         this.description = description;
     }
-
-   
 
 
     @Override
