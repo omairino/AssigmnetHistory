@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.assignments.proj.Api.dao.AssignmentsFakeDAO;
-import com.assignments.proj.Api.dao.ProjectFakeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +18,6 @@ public class AssignmentsController {
 
     @Autowired
     private AssignmentsFakeDAO assignmentsDao;
-    @Autowired
-    private ProjectFakeDAO p;
 
 
     @GetMapping("")
@@ -46,10 +43,10 @@ public class AssignmentsController {
 
             for (Assignment as : assignments) {
                 result.put("id", as.getId());
-                result.put("name", as.getName());
+                result.put("name", as.getAssignmentName());
                 result.put("startDATE", as.getStartDate());
                 result.put("endDATE", as.getEndDate());
-                result.put("projectName", p.find(as.getProjectID()).getName());
+                result.put("projectName", as.getProjectName());
                 result.put("status", as.getStatus());
                 result.put("requestedBy", as.getRequestedBy());
                 json.add(result);
