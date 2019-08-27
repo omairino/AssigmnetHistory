@@ -10,51 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 
-    private List<Assignment> assignments = Arrays.asList(
-            new Assignment(1, 1, 1, "Asn 1"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(2, 1, 1, "Asn 2"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(3, 1, 1, "Asn 3"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(4, 1, 1, "Asn 4"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(5, 1, 1, "Asn 5"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(6, 1, 1, "Asn 6"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(7, 1, 1, "Asn 7"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(8, 1, 1, "Asn 8"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(9, 1, 1, "Asn 9"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(10, 1, 1, "Asn 10"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(11, 2, 1, "Asn 11"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(12, 1, 1, "Asn 12"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(13, 1, 1, "Asn 13"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(14, 1, 1, "Asn 14"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(15, 1, 1, "Asn 15"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(16, 1, 1, "Asn 16"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(17, 2, 1, "Asn 17"
-                    , new Date(System.currentTimeMillis()), new Date(), "Pending Approval", "Tarik"),
-            new Assignment(18, 2, 1, "Asn 18"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(19, 2, 1, "Asn 19"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(20, 2, 1, "Asn 20"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(21, 2, 1, "Asn 21"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"),
-            new Assignment(22, 2, 1, "Asn 22"
-                    , new Date(System.currentTimeMillis()), new Date(), "Approved", "Tarik"));
+    private List<Assignment> assignments = Arrays.asList(new Assignment(1, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(1, "Cellcom", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(2, "VODAPHONE", "AABB", new Date(), new Date(), "Done", "Amjad"),
+            new Assignment(3, "Cellcom", "AACC", new Date(), new Date(), "Done", "Majd"),
+            new Assignment(4, "Partner", "AAAA", new Date(), new Date(), "Done", "Omair"),
+            new Assignment(5, "Partner", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(6, "Partner", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(7, "Hotmobile", "AADD", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(8, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(9, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(10, "Hotmobile", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(11, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
+            new Assignment(12, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik")
+    );
 
     @Override
     public List<Assignment> getAllItems() {
@@ -119,7 +88,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 
         List<Assignment> tempAsns = Optional.of(assignments
                 .stream()
-                .filter(Assignment -> Assignment.getEmployeeID() == id)
+//                .filter(Assignment -> Assignment.getEmployeeID() == id)
                 .collect(Collectors.toList())).orElse(null);
 
         if (tempAsns.size() == 0)
@@ -153,7 +122,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
         return Optional.of(assignments
                 .stream()
                 .skip((currPage - 1) * limit)
-                .filter(asn -> asn.getEmployeeID() == id)
+                //.filter(asn -> asn.getEmployeeID() == id)
                 .limit(limit)
                 .collect(Collectors.toList()))
                 .orElse(null);
