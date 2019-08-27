@@ -1,13 +1,9 @@
 package com.assignments.proj.Api.DAO;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Date;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 import com.assignments.proj.Api.Model.AssignmentHistory;
@@ -114,11 +110,16 @@ public class AssignmentHistoryFakeDAO implements AssignemtsCollection<Assignment
 	public int numberOfPages(int id, int limit) {
 		// find all the AssignmentHistorys for some employeee
 		// devide the results found by the limit to get page number
-		List<AssignmentHistory> tempAsns = AssignmentHistorys
+
+		List<AssignmentHistory> tempAsns = new ArrayList<>();/*Optional.of(AssignmentHistorys
 				.stream()
 				.filter(AssignmentHistory -> AssignmentHistory.getEmployeeID() == id)
-				.limit(limit)
-				.collect(Collectors.toList());
+				.collect(Collectors.toList())).orElse(null);*/
+		for (AssignmentHistory asn : AssignmentHistorys){
+			if (asn.getEmployeeID() == id){
+				tempAsns.add(asn);
+			}
+		}
 
 		return (int)Math.floor(tempAsns.size()/limit) + 1;
 	}
@@ -126,14 +127,27 @@ public class AssignmentHistoryFakeDAO implements AssignemtsCollection<Assignment
 	@Override
 	public List<AssignmentHistory> getAssignmentsByUserID(int id, int currPage, int limit) {
 		// filter the AssignmentHistorys by employee id and collect them in a list
-		// if not found return null
-		return Optional.of(AssignmentHistorys
+		// if not found return empty list
+
+		List<AssignmentHistory> tempAsns = new ArrayList<>();
+
+		if (currPage == 0 || (currPage-1)*limit >= AssignmentHistorys.size())
+			return tempAsns;
+
+		for (int i = (currPage-1)*limit; i < AssignmentHistorys.size(); i++){
+			AssignmentHistory asn = AssignmentHistorys.get(i);
+			if (asn.getEmployeeID() == id) {
+				tempAsns.add(asn);
+			}
+		}
+
+		return tempAsns;/*Optional.of(AssignmentHistorys
 				.stream()
-				.skip(currPage*limit-1)
+				.skip((currPage-1)*limit)
 				.filter(asn -> asn.getEmployeeID() == id)
 				.limit(limit)
 				.collect(Collectors.toList()))
-				.orElse(null);
+				.orElse(null);*/
 	}
 	@Override
 	public AssignmentHistory find(int item) {
