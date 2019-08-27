@@ -1,5 +1,6 @@
 package com.assignments.proj.Api.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class AssignmentsController {
             message.put("responseData", "True");
             message.put("msg", "success");
 
-            for (assignmentsDao as : assignments) {
+            for (Assignment as : assignments) {
                 result.put("id", as.getId());
                 result.put("name", as.getName());
                 result.put("startDATE", as.getStartDate());
