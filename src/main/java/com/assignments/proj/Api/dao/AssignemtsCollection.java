@@ -1,4 +1,4 @@
-package com.assignments.proj.Api.DAO;
+package com.assignments.proj.Api.dao;
 
 
 import java.util.List;

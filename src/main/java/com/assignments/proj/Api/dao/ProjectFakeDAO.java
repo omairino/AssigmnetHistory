@@ -1,12 +1,10 @@
-package com.assignments.proj.Api.DAO;
+package com.assignments.proj.Api.dao;
 
 import java.util.Arrays;
 
 import java.util.List;
 
-import com.assignments.proj.Api.Model.Assignment;
-import com.assignments.proj.Api.Model.AssignmentHistory;
-import com.assignments.proj.Api.Model.Project;
+import com.assignments.proj.Api.model.Project;
 import org.springframework.stereotype.Service;
 
 @Service

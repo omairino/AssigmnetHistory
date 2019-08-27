@@ -1,4 +1,4 @@
-package com.assignments.proj.Api.Model;
+package com.assignments.proj.Api.model;
 
 public class AssignmentJoinProject {
 

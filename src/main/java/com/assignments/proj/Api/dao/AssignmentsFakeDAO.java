@@ -1,15 +1,10 @@
-package com.assignments.proj.Api.DAO;
+package com.assignments.proj.Api.dao;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.assignments.proj.Api.model.Assignment;
 import org.springframework.stereotype.Service;
-
-import com.assignments.proj.Api.Model.Assignment;
-import com.assignments.proj.Api.Model.Project;
 
 
 @Service
@@ -112,28 +107,46 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment>{
 
 	
 	public int numberOfPages(int id, int limit) {
-		// find all the assignments for some employeee
+		// find all the AssignmentHistorys for some employeee
 		// devide the results found by the limit to get page number
-		List<Assignment> tempAsns = assignments
+
+		List<Assignment> tempAsns = new ArrayList<>();/*Optional.of(assignments
 				.stream()
-				.filter(assignment -> assignment.getEmployeeID() == id)
-				.limit(limit)
-				.collect(Collectors.toList());
+				.filter(Assignment -> Assignment.getEmployeeID() == id)
+				.collect(Collectors.toList())).orElse(null);*/
+		for (Assignment asn : assignments){
+			if (asn.getEmployeeID() == id){
+				tempAsns.add(asn);
+			}
+		}
 
 		return (int)Math.floor(tempAsns.size()/limit) + 1;
 	}
 
 	@Override
 	public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) {
-		// filter the assignments by employee id and collect them in a list
-		// if not found return null
-		return Optional.of(assignments
+		// filter the AssignmentHistorys by employee id and collect them in a list
+		// if not found return empty list
+
+		List<Assignment> tempAsns = new ArrayList<>();
+
+		if (currPage == 0 || (currPage-1)*limit >= assignments.size())
+			return tempAsns;
+
+		for (int i = (currPage-1)*limit; i < assignments.size(); i++){
+			Assignment asn = assignments.get(i);
+			if (asn.getEmployeeID() == id) {
+				tempAsns.add(asn);
+			}
+		}
+
+		return tempAsns;/*Optional.of(AssignmentHistorys
 				.stream()
-				.skip(currPage*limit-1)
+				.skip((currPage-1)*limit)
 				.filter(asn -> asn.getEmployeeID() == id)
 				.limit(limit)
 				.collect(Collectors.toList()))
-				.orElse(null);
+				.orElse(null);*/
 	}
 
 
