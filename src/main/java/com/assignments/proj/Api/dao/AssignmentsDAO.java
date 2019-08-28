@@ -102,6 +102,11 @@ public class AssignmentsDAO implements AssignemtsCollection<Assignment> {
 
     @Override
     public Assignment find(int id) {
+        for (Assignment p : this.assignments) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
         return null;
     }
 
