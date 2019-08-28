@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.assignments.proj.Api.dao.AssignmentsFakeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.json.simple.JSONObject;;
@@ -19,49 +21,20 @@ public class AssignmentsController {
     @Autowired
     private AssignmentsFakeDAO assignmentsDao;
 
-
     @GetMapping("")
-    public @ResponseBody
-    List<JSONObject> getAssignmentsHistoryForEmployee(@RequestParam int empid, @RequestParam int pageNumber, @RequestParam int numberOfAssignments) {
+    public ResponseEntity<JSONObject> getAssignmentsHistoryForEmployee(@RequestParam int empid, @RequestParam int pageNumber) {
         /**
          *  should move data processing to appropriate DAOs and only
          *  the controllers return the responses
          */
-        List<Assignment> assignments;
-        if (numberOfAssignments != 0) {
-            assignments = assignmentsDao.getAssignmentsByUserID(empid, pageNumber, numberOfAssignments);
-        } else {
-            assignments = assignmentsDao.getAssignmentsByUserID(empid, pageNumber, 10);
-        }
+        List<Assignment> assignments = assignmentsDao.getAssignmentsByUserID(empid, pageNumber, 10);
 
-        JSONObject result = new JSONObject();
-        JSONObject message = new JSONObject();
-        List<JSONObject> json = new ArrayList<JSONObject>();
         if (assignments.size() > 0) {
-            message.put("responseData", "True");
-            message.put("msg", "success");
-
-            for (Assignment as : assignments) {
-                result.put("id", as.getId());
-                result.put("name", as.getAssignmentName());
-                result.put("startDATE", as.getStartDate());
-                result.put("endDATE", as.getEndDate());
-                result.put("projectName", as.getProjectName());
-                result.put("status", as.getStatus());
-                result.put("requestedBy", as.getRequestedBy());
-                json.add(result);
-                result = new JSONObject();
-            }
-            message.put("item", json);
-
-        } else {
-            message.put("responseData", "True");
-            message.put("msg", "No Item");
-            message.put("item", json);
-
+            JSONObject result = new JSONObject();
+            result.put("item", assignments);
+            result.put("numberOfPage", assignmentsDao.numberOfPages(empid, 10));
+            return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
         }
-        return Arrays.asList(message);
+        return new ResponseEntity<JSONObject>(HttpStatus.NOT_FOUND);
     }
-
-
 }
