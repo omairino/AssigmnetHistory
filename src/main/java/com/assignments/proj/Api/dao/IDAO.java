@@ -22,7 +22,7 @@ public interface IDAO<T> {
     T insert(T item) throws SQLException;
     /**
      * @param item item to be updated
-     * @return the item with generated id
+     * @return the updated item
      * @throws SQLException in case of malformed sql queries and database errors
      */
     T update(T item) throws SQLException;
