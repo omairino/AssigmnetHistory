@@ -4,11 +4,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.assignments.proj.Api.model.Assignment;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
+//    private int limitPage = 10;
 
     private List<Assignment> assignments = Arrays.asList(new Assignment(1, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
             new Assignment(1, "Cellcom", "AAAA", new Date(), new Date(), "Done", "Tarik"),
@@ -75,7 +77,8 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
     }
 
     @Override
-    public int numberOfPages(int limit) {
+    public int numberOfPages(int limitPage) {
+
         // find all the AssignmentHistorys for some employeee
         // devide the results found by the limit to get page number
 
@@ -95,11 +98,11 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
             return 0;
         // if number of items dives into exact number
         // return it without any further calculation
-        if (tempAsns.size() % limit == 0)
-            return tempAsns.size() / limit;
+        if (tempAsns.size() % limitPage == 0)
+            return tempAsns.size() / limitPage;
 
 
-        return (int) Math.floor(tempAsns.size() / limit) + 1;
+        return (int) Math.floor(tempAsns.size() / limitPage) + 1;
     }
 
     @Override
@@ -126,6 +129,16 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
                 .limit(limit)
                 .collect(Collectors.toList()))
                 .orElse(null);
+    }
+
+    @Override
+    public JSONObject jsonResult() {
+
+        JSONObject result = new JSONObject();
+        result.put("numberOfPage", this.numberOfPages(10));
+        result.put("item", this.assignments);
+
+        return result;
     }
 
 

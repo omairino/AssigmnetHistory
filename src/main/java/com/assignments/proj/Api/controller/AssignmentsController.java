@@ -27,13 +27,10 @@ public class AssignmentsController {
          *  should move data processing to appropriate DAOs and only
          *  the controllers return the responses
          */
-        List<Assignment> assignments = assignmentsDao.getAssignmentsByUserID(employeeId, pageNumber, 10);
+        List<Assignment> assignments = assignmentsDao.getAssignmentsByUserID(employeeId, pageNumber,10);
 
         if (assignments.size() > 0) {
-            JSONObject result = new JSONObject();
-            result.put("item", assignments);
-            result.put("numberOfPage", assignmentsDao.numberOfPages( 10));
-            return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
+            return new ResponseEntity<JSONObject>(assignmentsDao.jsonResult(), HttpStatus.OK);
         }
         return new ResponseEntity<JSONObject>(HttpStatus.NOT_FOUND);
     }
