@@ -22,7 +22,7 @@ public class AssignmentsController {
     private AssignmentsFakeDAO assignmentsDao;
 
     @GetMapping("")
-    public ResponseEntity<JSONObject> getAssignmentsHistoryForEmployee(@RequestParam int employeeId, @RequestParam int pageNumber) {
+    public ResponseEntity<List<JSONObject>> getAssignmentsHistoryForEmployee(@RequestParam int employeeId, @RequestParam int pageNumber) {
         /**
          *  should move data processing to appropriate DAOs and only
          *  the controllers return the responses
@@ -30,8 +30,8 @@ public class AssignmentsController {
         List<Assignment> assignments = assignmentsDao.getAssignmentsByUserID(employeeId, pageNumber,10);
 
         if (assignments.size() > 0) {
-            return new ResponseEntity<JSONObject>(assignmentsDao.jsonResult(), HttpStatus.OK);
+            return new ResponseEntity<List<JSONObject>>(assignmentsDao.jsonResult(), HttpStatus.OK);
         }
-        return new ResponseEntity<JSONObject>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<List<JSONObject>>(HttpStatus.NOT_FOUND);
     }
 }

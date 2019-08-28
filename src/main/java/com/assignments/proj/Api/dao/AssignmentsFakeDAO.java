@@ -132,13 +132,13 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
     }
 
     @Override
-    public JSONObject jsonResult() {
+    public List<JSONObject> jsonResult() {
 
         JSONObject result = new JSONObject();
         result.put("numberOfPage", this.numberOfPages(10));
         result.put("item", this.assignments);
 
-        return result;
+        return Arrays.asList(result);
     }
 
 

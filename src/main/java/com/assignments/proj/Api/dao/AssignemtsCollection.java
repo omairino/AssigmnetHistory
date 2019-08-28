@@ -13,5 +13,5 @@ import java.util.List;
 public interface AssignemtsCollection<T> extends IDAO<T> {
     int numberOfPages(int limit);
     List<T> getAssignmentsByUserID(int id, int currPage, int limit);
-    JSONObject jsonResult();
+    List<JSONObject> jsonResult();
 }
