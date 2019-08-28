@@ -1,5 +1,7 @@
 package com.assignments.proj.Api.dao;
 
+import org.springframework.stereotype.Service;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,7 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
+@Service
 public class DBHandler {
 
     private Properties properties;

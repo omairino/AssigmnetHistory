@@ -4,6 +4,7 @@ package com.assignments.proj.Api.dao;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import org.json.simple.JSONObject;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -12,6 +13,6 @@ import java.util.List;
  */
 public interface AssignemtsCollection<T> extends IDAO<T> {
     int numberOfPages(int limit);
-    List<T> getAssignmentsByUserID(int id, int currPage, int limit);
+    List<T> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException;
     List<JSONObject> jsonResult();
 }
