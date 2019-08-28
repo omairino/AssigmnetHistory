@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 
-@Service
-public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
+/*@Service
+public class AssignmentsFakeDAO implements AssignmentsCollection<Assignment> {
 //    private int limitPage = 10;
 
     private List<Assignment> assignments = Arrays.asList(new Assignment(1, "VODAPHONE", "AAAA", new Date(), new Date(), "Done", "Tarik"),
@@ -43,13 +43,13 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
         }
         return null;
     }
-
+*/
     /***
      *
      * @param @Assignment to update
      * @return updated assignment
      */
-    @Override
+   /* @Override
     public Assignment update(Assignment item) {
         // look for the assignment by index, if found update it and return it
         // else return null
@@ -75,8 +75,8 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 
         return null;
     }
-
-    @Override
+*/
+    /*@Override
     public int numberOfPages(int limitPage) {
 
         // find all the AssignmentHistorys for some employeee
@@ -89,7 +89,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 			}
 		}*/
 
-        List<Assignment> tempAsns = Optional.of(assignments
+       /* List<Assignment> tempAsns = Optional.of(assignments
                 .stream()
 //                .filter(Assignment -> Assignment.getEmployeeID() == id)
                 .collect(Collectors.toList())).orElse(null);
@@ -104,8 +104,8 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 
         return (int) Math.floor(tempAsns.size() / limitPage) + 1;
     }
-
-    @Override
+*/
+   /* @Override
     public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) {
         // filter the AssignmentHistorys by employee id and collect them in a list
         // if not found return null
@@ -122,7 +122,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
 			}
 		}*/
 
-        return Optional.of(assignments
+      /*  return Optional.of(assignments
                 .stream()
                 .skip((currPage - 1) * limit)
                 //.filter(asn -> asn.getEmployeeID() == id)
@@ -154,3 +154,4 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
     }
 
 }
+*/

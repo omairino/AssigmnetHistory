@@ -3,17 +3,22 @@ package com.assignments.proj.Api.dao;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
 @Service
-public class DBHandler {
+ class DBHandler {
 
     private Properties properties;
-    private Connection connection = null;
+    /*static {  // config file paths for each one
+          final String CONFIG_PATH_A ="";
+          final String CONFIG_PATH_O ="";
+          final String CONFIG_PATH_M ="";
+          final String CONFIG_PATH_T ="";
+    }*/
 
     private DBHandler() {
 
@@ -22,37 +27,17 @@ public class DBHandler {
 
             properties.load(fis);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public Connection getConnection() throws SQLException {
-        if (connection == null) {
-            newConnection();
-        } else if (connection.isClosed()) {
-            newConnection();
-        }
-
-        return connection;
-
-    }
-
-    private void newConnection() throws SQLException {
+    protected Connection getConnection() throws SQLException {
         String url = properties.getProperty("url");
-        System.out.println(url);
-        connection = DriverManager.getConnection(url, properties.getProperty("user"), properties.getProperty("pass"));
-    }
+        //System.out.println(url);
+        return DriverManager.getConnection(url, properties.getProperty("user"), properties.getProperty("pass"));
 
-    public void closeConnection() {
-        try {
-            if (connection != null)
-                connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 }
