@@ -1,7 +1,7 @@
 package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.model.Assignment;
-import exceptions.ResultsNotFoundException;
+import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,10 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
     @Override
     public JSONObject numberOfPages(int empID, int limitPage) throws SQLException {
         final String NUMBEROFPAGES = "numberOfPage";
-        String query = "SELECT COUNT(ID) FROM assignments"; // query retrieves the number of entries in a table
+
+        // query retrieves the number of entries in a table
+        // COUNT(ID) can be changed in the future according to what id to be used
+        String query = "SELECT COUNT(ID) FROM assignments";
         int rowCount = 0;
         Integer numOfPages = 0;
         JSONObject result = new JSONObject();
@@ -52,6 +55,7 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
         return result;
 
     }
+
 
     @Override
     public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException {
@@ -109,7 +113,7 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
 
     @Override
-    public List<Assignment> getAllItems() throws SQLException {
+    public List<Assignment> getAllItems() throws SQLException, ResultsNotFoundException {
         List<Assignment> assignments = new ArrayList<>();
 
         try (Connection conn = db.getConnection()) {
@@ -140,18 +144,56 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
         return assignments;
     }
 
+
     @Override
-    public Assignment insert(Assignment item) {
+    public Assignment insert(Assignment item) throws SQLException{
+
+        try (Connection conn = db.getConnection()) {
+            //TODO complete query
+            String sqlCommand = "insert query";
+
+            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+                //command.execute();
+                // try (ResultSet result = ) {
+                //}
+                //TODO if insert successful
+                // return object
+            }
+        }
         return null;
     }
 
     @Override
-    public Assignment update(Assignment item) {
+    public Assignment update(Assignment item) throws SQLException{
+        try (Connection conn = db.getConnection()) {
+            //TODO complete query
+            String sqlCommand = "update query";
+
+            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+                //command.execute();
+                // try (ResultSet result = ) {
+                //}
+                //TODO if update successful
+                // return object
+            }
+        }
         return null;
     }
 
     @Override
-    public Assignment delete(Assignment item) {
+    public Assignment delete(Assignment item) throws SQLException{
+        try (Connection conn = db.getConnection()) {
+            //TODO complete query
+            String sqlCommand = "delete query";
+
+            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+                //command.execute();
+                // try (ResultSet result = ) {
+                //}
+                //TODO if delete successful
+                // return object
+            }
+        }
         return null;
     }
 
