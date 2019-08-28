@@ -4,112 +4,103 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Assignment {
+    private int id;
+    private String projectName;
+    private String assignmentName;
+    private Date startDate;
+    private Date endDate;
+    private String status;
+    private String requestedBy;
 
-	private int id;
-	private int employeeID;
-	private int projectID;
-	private String name;
-	private Date startDate;
-	private Date endDate;
-	private String status;
-	private String requestedBy;  // manager name
+    public Assignment(int id, String projectName, String assignmentName, Date startDate, Date endDate, String status, String requestedBy) {
+        this.id = id;
+        this.projectName = projectName;
+        this.assignmentName = assignmentName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.requestedBy = requestedBy;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public void setAssignmentName(String assignmentName) {
+        this.assignmentName = assignmentName;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public String getAssignmentName() {
+        return assignmentName;
+    }
+
+    public static void copy(Assignment temp, Assignment item) {
+
+        temp.setEndDate(item.startDate);
+        temp.setEndDate(item.endDate);
+        temp.setStatus(item.status);
+        temp.setRequestedBy(item.requestedBy);
+
+    }
 
 
-	public Assignment(int id, int employeeID, int projectID, String name, Date startDate, Date endDate, String status, String requestedBy) {
-		this.id = id;
-		this.employeeID = employeeID;
-		this.projectID = projectID;
-		this.name = name;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.status = status;
-		this.requestedBy = requestedBy;
-	}
 
-	public static void copy(Assignment temp, Assignment item) {
+    public int getId() {
+        return id;
+    }
 
-		temp.setEndDate(item.startDate);
-		temp.setEndDate(item.endDate);
-		temp.setStatus(item.status);
-		temp.setRequestedBy(item.requestedBy);
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	}
 
-	public int getProjectID() {
-		return projectID;
-	}
 
-	public void setProjectID(int projectID) {
-		this.projectID = projectID;
-	}
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	public int getEmployeeID() {
-		return employeeID;
-	}
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
-	}
+    public Date getEndDate() {
+        return endDate;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getRequestedBy() {
+        return requestedBy;
+    }
 
-	public Date getStartDate() {
-		return startDate;
-	}
+    public void setRequestedBy(String requestedBy) {
+        this.requestedBy = requestedBy;
+    }
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Assignment that = (Assignment) o;
+        return id == that.id;
+    }
 
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getRequestedBy() {
-		return requestedBy;
-	}
-
-	public void setRequestedBy(String requestedBy) {
-		this.requestedBy = requestedBy;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Assignment that = (Assignment) o;
-		return id == that.id;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
-
