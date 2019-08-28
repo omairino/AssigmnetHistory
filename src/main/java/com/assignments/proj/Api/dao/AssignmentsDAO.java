@@ -2,6 +2,7 @@ package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.model.Assignment;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
@@ -9,13 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AssignmentsDAO implements AssignemtsCollection<Assignment> {
+    @Autowired
     private DBHandler db;
     private List<Assignment> assignments = Arrays.asList();
 

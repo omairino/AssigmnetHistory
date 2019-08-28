@@ -13,10 +13,11 @@ import java.util.Properties;
 public class DBHandler {
 
     private Properties properties;
-    private Connection connection;
+    private Connection connection = null;
 
     private DBHandler() {
-        try (FileInputStream fis = new FileInputStream("db.config")) {
+
+        try (FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\IdeaProjects\\AssigmnetHistory\\src\\main\\java\\com\\assignments\\proj\\Api\\dao\\db.config")) {
             properties = new Properties();
 
             properties.load(fis);
@@ -42,6 +43,7 @@ public class DBHandler {
 
     private void newConnection() throws SQLException {
         String url = properties.getProperty("url");
+        System.out.println(url);
         connection = DriverManager.getConnection(url, properties.getProperty("user"), properties.getProperty("pass"));
     }
 
