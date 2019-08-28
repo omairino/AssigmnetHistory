@@ -5,10 +5,8 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 public class AssignmentsDAO implements AssignemtsCollection<Assignment> {
     @Autowired
     private DBHandler db;
-    private List<Assignment> assignments = Arrays.asList();
+    private List<Assignment> assignments;
 
     @Override
     public int numberOfPages(int limitPage) {
@@ -41,20 +39,21 @@ public class AssignmentsDAO implements AssignemtsCollection<Assignment> {
 
     @Override
     public List getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException {
-
+        assignments = new ArrayList<Assignment>();
         try (Connection conn = db.getConnection()) {
 
 
-            String sqlCommand = "Select id,projectName,assignmentName,startDate,endDate,status,requestedBy from Project p join AssignmentHistory a "
+            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p join assignmenthistory a "
                     + " on p.id = a.projectid"
-                    + " where a.employeeid = ?";
+                    + " where a.employeeid = ? or '1'='1'";
 
 
             PreparedStatement command = conn.prepareStatement(sqlCommand);
-            command.setString(1, String.valueOf(id));
+            command.setInt(1, id);
+
             ResultSet result = command.executeQuery();
             while (result.next()) {
-                assignments.add(new Assignment(result.getInt("id"),
+                assignments.add(new Assignment(result.getInt("a.id"),
                         result.getString("projectName"),
                         result.getString("assignmentName"),
                         result.getDate("startDate"),
