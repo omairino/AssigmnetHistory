@@ -75,7 +75,7 @@ public class AssignmentsFakeDAO implements AssignemtsCollection<Assignment> {
     }
 
     @Override
-    public int numberOfPages(int id, int limit) {
+    public int numberOfPages(int limit) {
         // find all the AssignmentHistorys for some employeee
         // devide the results found by the limit to get page number
 
