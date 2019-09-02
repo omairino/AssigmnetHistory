@@ -19,7 +19,7 @@ public class ProjectController {
     private IProjectDAO projectsDAO;
 
     @GetMapping("")
-    public ResponseEntity<List<Project>> getAssignmentsHistoryForEmployee() throws SQLException {
+    public ResponseEntity<List<Project>> getProjects() throws SQLException {
         return new ResponseEntity<>(projectsDAO.getAllItems(), HttpStatus.OK);
     }
 }
