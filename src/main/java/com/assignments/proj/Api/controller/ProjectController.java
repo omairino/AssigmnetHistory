@@ -25,7 +25,6 @@ public class ProjectController {
 
     @GetMapping("")
     public ResponseEntity<List<Project>> getAssignmentsHistoryForEmployee() throws SQLException {
-        ;
         return new ResponseEntity<>(projectsDAO.getAllItems(), HttpStatus.OK);
     }
 }
