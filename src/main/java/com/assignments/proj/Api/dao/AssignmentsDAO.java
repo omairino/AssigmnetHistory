@@ -5,6 +5,7 @@ import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -23,7 +24,7 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
         // query retrieves the number of entries in a table
         // COUNT(ID) can be changed in the future according to what id to be used
-        String query = "SELECT COUNT(ID) FROM assignments";
+        String query = "SELECT COUNT(ID) FROM assignment";
         int rowCount = 0;
         Integer numOfPages = 0;
         JSONObject result = new JSONObject();
@@ -56,12 +57,13 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
     @Override
     public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException {
-        List<Assignment> assignments = new ArrayList<>();
+        List<Assignment> assignments = new ArrayList<Assignment>();
 
         if (currPage < 1)
             currPage = 1;
 
         int offset = (currPage - 1) * limit; // index of which row to start retrieving data
+
 
         try (Connection conn = db.getConnection()) {
             String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p join assignmenthistory a "

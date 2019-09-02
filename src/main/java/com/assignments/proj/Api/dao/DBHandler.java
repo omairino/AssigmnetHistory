@@ -16,7 +16,7 @@ import java.util.Properties;
 
     private DBHandler() {
 
-        try (FileInputStream fis = new FileInputStream("db.config")) {
+        try (FileInputStream fis = new FileInputStream("C:\\Users\\omair\\Desktop\\project amazon\\omair\\db.config")) {
             properties = new Properties();
 
             properties.load(fis);
