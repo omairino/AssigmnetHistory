@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Project {
 
-    private int projectId;
+    private int id;
     private String projectName;
     private String description;
 
@@ -12,8 +12,8 @@ public class Project {
         return description;
     }
 
-    public int getProjectId() {
-        return projectId;
+    public int getId() {
+        return id;
     }
 
     public String getProjectName() {
@@ -25,7 +25,7 @@ public class Project {
     }
 
     public void setProjectid(int projectId) {
-        this.projectId = projectId;
+        this.id = projectId;
     }
 
     public void setProjectName(String projectName) {
@@ -33,7 +33,7 @@ public class Project {
     }
 
     public Project(int projectId, String projectName , String description) {
-        this.projectId = projectId ;
+        this.id = projectId ;
         this.projectName = projectName;
         this.description = description;
     }
@@ -43,13 +43,13 @@ public class Project {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Project project = (Project) o;
-        return projectId == project.projectId &&
+        return id == project.id &&
                 Objects.equals(projectName, project.projectName) &&
                 Objects.equals(description, project.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(projectId, projectName, description);
+        return Objects.hash(id, projectName, description);
     }
 }
