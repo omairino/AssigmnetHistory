@@ -1,6 +1,6 @@
 package com.assignments.proj.Api.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Assignment {
@@ -38,17 +38,6 @@ public class Assignment {
         return assignmentName;
     }
 
-    public static void copy(Assignment temp, Assignment item) {
-
-        temp.setEndDate(item.startDate);
-        temp.setEndDate(item.endDate);
-        temp.setStatus(item.status);
-        temp.setRequestedBy(item.requestedBy);
-
-    }
-
-
-
     public int getId() {
         return id;
     }
@@ -56,8 +45,6 @@ public class Assignment {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public Date getStartDate() {
         return startDate;

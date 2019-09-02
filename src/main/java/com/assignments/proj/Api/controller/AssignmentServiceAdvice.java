@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class AssignmentServiceAdvice {
 
     /**
-     * handles NullPointerException, SQLException, thrown com.assignments.proj.Api.exceptions
+     * handles NullPointerException, SQLException, thrown exceptions
      * by returning internal server error status
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

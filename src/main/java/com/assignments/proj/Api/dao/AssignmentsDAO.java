@@ -1,5 +1,6 @@
 package com.assignments.proj.Api.dao;
 
+import com.assignments.proj.Api.exceptions.BadRequestException;
 import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import org.json.simple.JSONObject;
@@ -15,10 +16,6 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
     @Autowired
     private DBHandler db;
-    // this class is a singleton so you can't save the list as a member
-    // already retried because other requests will get a duplicate results because od
-    // loading in entries in the list for every request
-    //private List<Assignment> assignments;
 
     @Override
     public JSONObject numberOfPages(int empID, int limitPage) throws SQLException {
@@ -46,12 +43,12 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
             return result;
         // if number of items dives into exact number
         // return it without any further calculation
-        if (rowCount % limitPage == 0){
+        if (rowCount % limitPage == 0) {
             result.put(NUMBEROFPAGES, (rowCount / limitPage));
             return result;
         }
         numOfPages = (int) Math.floor(rowCount / limitPage) + 1;
-        result.put(NUMBEROFPAGES,numOfPages);
+        result.put(NUMBEROFPAGES, numOfPages);
         return result;
 
     }
@@ -97,27 +94,13 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
         return assignments;
     }
 
-    /*
-    NOTE: we only need the response of number of pages to be wrapped in json because
-          when returning the number of pages the the spring framework prints it out as a number without
-          json, but spring can convert the other objects to json by itself
-    @Override
-    public List<JSONObject> jsonResult() {
-        JSONObject result = new JSONObject();
-        result.put("numberOfPage", this.numberOfPages(10));
-        result.put("item", this.assignments);
-
-        return Arrays.asList(result);
-    }
-*/
-
-
     @Override
     public List<Assignment> getAllItems() throws SQLException, ResultsNotFoundException {
         List<Assignment> assignments = new ArrayList<>();
 
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p join assignmenthistory a "
+            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy " +
+                    "from project p inner join assignmenthistory a "
                     + " on p.id = a.projectid";
 
             try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
@@ -140,61 +123,86 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
         if (assignments.isEmpty())
             throw new ResultsNotFoundException("Couldn't find any assignment");
 
-
         return assignments;
     }
 
 
     @Override
-    public Assignment insert(Assignment item) throws SQLException{
+    public Assignment insert(Assignment item) throws SQLException {
 
         try (Connection conn = db.getConnection()) {
-            //TODO complete query
-            String sqlCommand = "insert query";
+            // fetch project id by name since project is a unique name which
+            // guarantees retrieving the appropriate id
+            String projectQuery = "SELECT id FROM project WHERE projectName = ?";
+            String insertQuery = "INSERT INTO assignmenthistory (projectID, assignmentName, startDate, endDate, status, requestedBy) VALUES(?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement fetch = conn.prepareStatement(projectQuery)) {
+                fetch.setString(1, item.getProjectName());
+                try (ResultSet resultSet = fetch.executeQuery()) {
 
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-                //command.execute();
-                // try (ResultSet result = ) {
-                //}
-                //TODO if insert successful
-                // return object
+                    if (resultSet.next()) {
+                        int projectID = resultSet.getInt(1);
+                        // preparing a statement that guarantees returning the auto generated id
+                        try (PreparedStatement command = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                            command.setInt(1, projectID);
+                            command.setString(2, item.getAssignmentName());
+                            command.setDate(3, item.getStartDate());
+                            command.setDate(4, item.getEndDate());
+                            command.setString(5, item.getStatus());
+                            command.setString(6, item.getRequestedBy());
+
+                            command.executeUpdate();
+                            try (ResultSet generatedID = command.getGeneratedKeys()) {
+                                if (generatedID.next())
+                                    item.setId(generatedID.getInt(1));
+                                else
+                                    throw new SQLException("Assignment insertion failed.");
+                            }
+                        }
+                    } else
+                        throw new BadRequestException("Failed attempt to add an assignment to a non-existent project.");
+                }
             }
         }
-        return null;
+        return item;
     }
 
     @Override
-    public Assignment update(Assignment item) throws SQLException{
+    public Assignment update(Assignment item) throws SQLException {
         try (Connection conn = db.getConnection()) {
-            //TODO complete query
-            String sqlCommand = "update query";
+            String updateQuery = "UPDATE assignmenthistory SET startDate = ?, endDate = ?, status = ?, requestedBy = ?;";
+            // preparing a statement that guarantees returning the auto generated id
+            try (PreparedStatement command = conn.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
 
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-                //command.execute();
-                // try (ResultSet result = ) {
-                //}
-                //TODO if update successful
-                // return object
+                command.setDate(1, item.getStartDate());
+                command.setDate(2, item.getEndDate());
+                command.setString(3, item.getStatus());
+                command.setString(4, item.getRequestedBy());
+
+                command.executeUpdate();
+                try (ResultSet generatedID = command.getGeneratedKeys()) {
+                    if (generatedID.next())
+                        item.setId(generatedID.getInt(1));
+                    else
+                        throw new SQLException("Assignment update failed.");
+                }
             }
         }
-        return null;
+        return item;
     }
 
     @Override
-    public Assignment delete(Assignment item) throws SQLException{
+    public Assignment delete(Assignment item) throws SQLException {
         try (Connection conn = db.getConnection()) {
-            //TODO complete query
-            String sqlCommand = "delete query";
+            String deleteQuery = "DELETE FROM assignmenthistory WHERE id = ?";
 
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+            try (PreparedStatement command = conn.prepareStatement(deleteQuery)) {
                 //command.execute();
-                // try (ResultSet result = ) {
-                //}
-                //TODO if delete successful
-                // return object
+                if (command.executeUpdate() > 0) {
+                    return item;
+                }
             }
         }
-        return null;
+        throw new SQLException("Couldn't delete query");
     }
 
     @Override
@@ -210,23 +218,21 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
                 try (ResultSet result = command.executeQuery()) {
                     if (result.next()) {
-                        assignment= new Assignment(result.getInt("a.id"),
+                        assignment = new Assignment(result.getInt("a.id"),
                                 result.getString("projectName"),
                                 result.getString("assignmentName"),
                                 result.getDate("startDate"),
                                 result.getDate("endDate"),
                                 result.getString("status"),
                                 result.getString("requestedBy"));
-
                     }
                 }
             }
-
         }
 
         if (assignment == null)
             throw new ResultsNotFoundException("Couldn't find requested assignment");
+
         return assignment;
     }
-
 }
