@@ -8,6 +8,9 @@ public class Assignment {
     private String projectName;
     private String assignmentName;
     private Date startDate;
+    private Date endDate;
+    private String status;
+    private String requestedBy;
 
     public Assignment(int id, String projectName, String assignmentName, Date startDate, Date endDate, String status, String requestedBy) {
         this.id = id;
@@ -26,10 +29,6 @@ public class Assignment {
     public void setAssignmentName(String assignmentName) {
         this.assignmentName = assignmentName;
     }
-
-    private Date endDate;
-    private String status;
-    private String requestedBy;// manager name
 
     public String getProjectName() {
         return projectName;
