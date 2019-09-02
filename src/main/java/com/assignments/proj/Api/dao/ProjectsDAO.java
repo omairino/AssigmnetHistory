@@ -4,13 +4,14 @@ import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Project;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectsDAO implements IDAO<Project>{
+@Service
+public class ProjectsDAO implements IProjectDAO{
     @Autowired
     private DBHandler db;
 
@@ -35,7 +36,8 @@ public class ProjectsDAO implements IDAO<Project>{
         return projectList;
     }
 
-    /*public List<Project> getManagerProjects(int managerId) throws SQLException, ResultsNotFoundException {
+    @Override
+    public List<Project> getManagerProjects(int managerId) throws SQLException, ResultsNotFoundException {
         List<Project> projectList = new ArrayList<Project>();
 
         try (Connection conn = db.getConnection()) {
@@ -60,7 +62,7 @@ public class ProjectsDAO implements IDAO<Project>{
             throw new ResultsNotFoundException("No Projects  Found !! ");
         }
         return projectList;
-    }*/
+    }
 
     @Override
     public Project insert(Project item) throws SQLException {
