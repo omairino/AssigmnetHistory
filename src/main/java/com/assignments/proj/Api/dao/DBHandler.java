@@ -16,7 +16,7 @@ import java.util.Properties;
 
     private DBHandler() {
 
-        try (FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\IdeaProjects\\AssigmnetHistory\\src\\main\\java\\com\\assignments\\proj\\Api\\dao\\db.config")) {
+        try (FileInputStream fis = new FileInputStream("db.config")) {
             properties = new Properties();
 
             properties.load(fis);
