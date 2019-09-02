@@ -13,12 +13,6 @@ import java.util.Properties;
  class DBHandler {
 
     private Properties properties;
-    /*static {  // config file paths for each one
-          final String CONFIG_PATH_A ="";
-          final String CONFIG_PATH_O ="";
-          final String CONFIG_PATH_M ="";
-          final String CONFIG_PATH_T ="";
-    }*/
 
     private DBHandler() {
 
