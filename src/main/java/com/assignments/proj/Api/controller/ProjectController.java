@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.assignments.proj.Api.dao.AssignmentsDAO;
 import com.assignments.proj.Api.dao.ProjectsDAO;
+import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Project;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.json.simple.JSONObject;
@@ -16,13 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import com.assignments.proj.Api.model.Assignment;
 
 @RestController
-@RequestMapping(path = "/getproject")
-public class projectController {
+@RequestMapping(path = "/projects")
+public class ProjectController {
+
     @Autowired
     private ProjectsDAO projectsDAO;
+
     @GetMapping("")
-    public ResponseEntity<List<Project>> getAssignmentsHistoryForEmployee(@RequestParam int managerId) throws SQLException {
-        List<Project> projects = projectsDAO.getManagerProjects(managerId);
-        return new ResponseEntity<>(projects, HttpStatus.OK);
+    public ResponseEntity<List<Project>> getAssignmentsHistoryForEmployee() throws SQLException {
+        ;
+        return new ResponseEntity<>(projectsDAO.getAllItems(), HttpStatus.OK);
     }
 }
