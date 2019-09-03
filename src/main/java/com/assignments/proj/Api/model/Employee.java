@@ -23,7 +23,7 @@ public class Employee {
 		this.phone = phone;
 		this.skills = skills;
 	}
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 	public void setId(Integer id) {
