@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
+public class AssignmentsDAO implements AssignmentsCollection {
 
     @Autowired
     private DBHandler db;
@@ -24,7 +24,7 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
         // query retrieves the number of entries in a table
         // COUNT(ID) can be changed in the future according to what id to be used
-        String query = "SELECT COUNT(ID) FROM assignment";
+        String query = "SELECT COUNT(id) FROM assignmenthistory";
         int rowCount = 0;
         Integer numOfPages = 0;
         JSONObject result = new JSONObject();
@@ -54,7 +54,6 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
     }
 
-
     @Override
     public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException {
         List<Assignment> assignments = new ArrayList<Assignment>();
@@ -64,9 +63,8 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
         int offset = (currPage - 1) * limit; // index of which row to start retrieving data
 
-
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p join assignmenthistory a "
+            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
                     + " on p.id = a.projectid"
                     + " where a.employeeid = ? limit ?,?";
 
@@ -127,7 +125,6 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
 
         return assignments;
     }
-
 
     @Override
     public Assignment insert(Assignment item) throws SQLException {
@@ -208,10 +205,10 @@ public class AssignmentsDAO implements AssignmentsCollection<Assignment> {
     }
 
     @Override
-    public Assignment findByID(int id) throws SQLException, ResultsNotFoundException {
+    public Assignment find(int id) throws SQLException, ResultsNotFoundException {
         Assignment assignment = null;
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p join assignmenthistory a "
+            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
                     + " on p.id = a.projectid"
                     + " where a.id = ?";
 

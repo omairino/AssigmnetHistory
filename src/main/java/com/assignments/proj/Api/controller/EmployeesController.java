@@ -1,7 +1,6 @@
 package com.assignments.proj.Api.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.assignments.proj.Api.dao.EmployeeFakeDAO;
-import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.model.Employee;
-import com.assignments.proj.Api.model.Skill;
 
 
 @RestController
@@ -33,7 +30,7 @@ public class EmployeesController {
         List<Employee> employees;
         
         
-        employees=employeeDao.getAllemployees();
+        employees=employeeDao.getAllItems();
         
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
@@ -59,7 +56,7 @@ public class EmployeesController {
         Employee employee;
         
         
-        employee=employeeDao.findByID(id);
+        employee=employeeDao.find(id);
     	result.put("id", employee.getId());
     	result.put("name", employee.getName());
     	result.put("password", employee.getPassword());
@@ -68,25 +65,25 @@ public class EmployeesController {
     	result.put("phone", employee.getPhone());
     	//result.put("skill", employee.getSkills());
     	json.add(result);
-    	
-    
+
+
     	return result;
-        
+
 
 	}
-	
 
-/////////////////////////////////////////////////////////////////////////////////////	
+
+/////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/name/{name}")
 	public @ResponseBody List<JSONObject> byName(@PathVariable String name) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees;
-        
-        
+
+
         employees=employeeDao.findByEmployeeName(name);
-        
+
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
         	result.put("name", emp.getName());
@@ -97,24 +94,24 @@ public class EmployeesController {
         	//result.put("skill", emp.getSkills());
         	json.add(result);
         	result=new JSONObject();
-        	
+
         	}
-        
+
 		 return json;
 	}
-	
-	
-///////////////////////////////////////////////////////////////////////////////////////////	
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/skill/{skillname}")
 	public @ResponseBody List<JSONObject> bySkill(@PathVariable String  skillname) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees;
-        
-        
+
+
         employees=employeeDao.findBySkillName(skillname);
-        
+
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
         	result.put("name", emp.getName());
@@ -125,23 +122,23 @@ public class EmployeesController {
         	//result.put("skill", emp.getSkills());
         	json.add(result);
         	result=new JSONObject();
-        	
+
         	}
-        
+
 		 return json;
 	}
-	
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@GetMapping("/IdANDEmployeeName")
 	public @ResponseBody List<JSONObject> byIdAndEmployeeName(@RequestParam Integer id,@RequestParam String  EmployeeName) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees=null;
-        
-       
+
+
         employees=employeeDao.findByIDANDEmployeeName(id,EmployeeName);
-        
+
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
         	result.put("name", emp.getName());
@@ -152,23 +149,23 @@ public class EmployeesController {
         	//result.put("skill", emp.getSkills());
         	json.add(result);
         	result=new JSONObject();
-        	
+
         	}
-        
+
 		 return json;
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@GetMapping("/IdANDSkillName")
 	public @ResponseBody List<JSONObject> byIdANDSkillName(@RequestParam Integer id,@RequestParam String Skillname) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees=null;
-        
-       
+
+
         employees=employeeDao.findByIDANDSkillName(id,Skillname);
-        
+
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
         	result.put("name", emp.getName());
@@ -179,23 +176,23 @@ public class EmployeesController {
         	//result.put("skill", emp.getSkills());
         	json.add(result);
         	result=new JSONObject();
-        	
+
         	}
-        
+
 		 return json;
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	@GetMapping("/SkillNameANDEmployeName")
 	public @ResponseBody List<JSONObject> byAll(@RequestParam String  EmployeeName,@RequestParam String Skillname) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees=null;
-        
-       
+
+
         employees=employeeDao.findBySkillNameANDEmployeName(EmployeeName,Skillname);
-        
+
         for(Employee emp: employees) {
         	result.put("id", emp.getId());
         	result.put("name", emp.getName());
@@ -206,21 +203,21 @@ public class EmployeesController {
         	//result.put("skill", emp.getSkills());
         	json.add(result);
         	result=new JSONObject();
-        	
+
         	}
-        
+
 		 return json;
 	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	@GetMapping("/searchAll")//localhost:8080/search/?id=1&name=tamer&type=
 	public @ResponseBody List<JSONObject> byAll(@RequestParam Integer id,@RequestParam String  EmployeeName,@RequestParam String Skillname) {
-		
+
 		JSONObject result = new JSONObject();
         List<JSONObject> json = new ArrayList<JSONObject>();
         List<Employee> employees=null;
-        
-       
+
+
         employees=employeeDao.findByIDANDSkillNameANDEmployeName(id,EmployeeName,Skillname);
         
         for(Employee emp: employees) {

@@ -34,23 +34,11 @@ public interface IDAO<T> {
     T delete(T item) throws SQLException;
 
     /**
-     * a
+     * retrieves an item by it's id
      * @param id
-     * @return
-     * @throws SQLException
+     * @return requested object
+     * @throws SQLException in case of malformed sql queries and database errors
      */
-    T findByID(int id) throws SQLException;
-
-    // should be in here for global pagination use
-
-    /**
-     * used for
-     * @param id
-     * @param limit
-     * @return
-     * @throws SQLException
-     */
-    JSONObject numberOfPages(int id, int limit) throws SQLException;
-
+    T find(int id) throws SQLException;
 
 }

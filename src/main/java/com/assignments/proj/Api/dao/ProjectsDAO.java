@@ -80,13 +80,9 @@ public class ProjectsDAO implements IProjectDAO{
     }
 
     @Override
-    public Project findByID(int id) throws SQLException {
+    public Project find(int id) throws SQLException {
         return null;
     }
 
-    @Override
-    public JSONObject numberOfPages(int id, int limit) throws SQLException {
-        return null;
-    }
 }
 
