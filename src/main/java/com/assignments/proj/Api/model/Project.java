@@ -7,13 +7,13 @@ import java.util.Objects;
 public class Project {
 
     private int id;
-    private long ManagerId;
+    private int ManagerId;
     private String projectName;
     private String description;
     private Date startDate;
     List<Skill> skills;
 
-    public Project(int id, long managerId, String projectName, String description, Date startDate, List<Skill> skills) {
+    public Project(int id, int managerId, String projectName, String description, Date startDate, List<Skill> skills) {
         this.id = id;
         ManagerId = managerId;
         this.projectName = projectName;
@@ -22,7 +22,7 @@ public class Project {
         this.skills = skills;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -30,11 +30,11 @@ public class Project {
         this.id = id;
     }
 
-    public long getManagerId() {
+    public int getManagerId() {
         return ManagerId;
     }
 
-    public void setManagerId(long managerId) {
+    public void setManagerId(int managerId) {
         ManagerId = managerId;
     }
 
