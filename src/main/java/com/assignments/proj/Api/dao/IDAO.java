@@ -13,13 +13,13 @@ public interface IDAO<T> {
      * @throws SQLException in case of malformed sql queries and database errors
      * @throws ResultsNotFoundException in case there are no data available
      */
-    List<T> getAllItems() throws SQLException;
+    List<T> findAll() throws SQLException;
     /**
      * @param item item to be inserted
      * @return the item with generated id
      * @throws SQLException in case of malformed sql queries and database errors
      */
-    T insert(T item) throws SQLException;
+    T add(T item) throws SQLException;
     /**
      * @param item item to be updated
      * @return the updated item
