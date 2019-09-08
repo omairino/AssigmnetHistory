@@ -22,4 +22,9 @@ public class ProjectController {
     public ResponseEntity<List<Project>> getProjects() throws SQLException {
         return new ResponseEntity<>(projectsDAO.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{managerID}")
+    public ResponseEntity<List<Project>> getProjectsByID(@PathVariable("managerID") int managerID) throws SQLException {
+        return new ResponseEntity<>(projectsDAO.getManagerProjects(managerID), HttpStatus.OK);
+    }
 }
