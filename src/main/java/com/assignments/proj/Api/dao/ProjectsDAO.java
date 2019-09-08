@@ -98,8 +98,44 @@ public class ProjectsDAO implements IProjectDAO {
 
     @Override
     public Project add(Project item) throws SQLException {
-        return null;
-    }
+        try (Connection conn = db.getConnection()) {
+
+            String insertQueryProject = "INSERT INTO project (projectName,managerID, description,startDate)" +
+                    "VALUES (?,?,?,?)";
+            try (PreparedStatement fetch = conn.prepareStatement(insertQueryProject, Statement.RETURN_GENERATED_KEYS)) {
+                fetch.setString(1, item.getProjectName());
+                fetch.setString(2, String.valueOf(item.getManagerId()));
+                fetch.setString(3, item.getDescription());
+                fetch.setString(4, String.valueOf(item.getStartDate()));
+                fetch.executeUpdate();
+                try (ResultSet generatedID = fetch.getGeneratedKeys()) {
+                    if (generatedID.next())
+                        item.setId(generatedID.getInt(1));
+
+                    else
+                        throw new SQLException("Project insertion failed.");
+                }
+            }
+
+            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID)\n" +
+                    "VALUES (?, ?)");
+            int sizeSkill = item.getSkills().size();
+            for (int i = 0; i < sizeSkill - 1; i++) {
+                insertProjectSkill.append(",VALUES (?, ?)");
+            }
+            insertProjectSkill.append(";");
+            try (PreparedStatement fetch = conn.prepareStatement(String.valueOf(insertProjectSkill), Statement.RETURN_GENERATED_KEYS)) {
+                for (int i = 0; i < sizeSkill - 1; i++) {
+                    fetch.setString(i + 1, String.valueOf(item.getId()));
+                    fetch.setString(i + 2, String.valueOf(item.getSkills().get(0)));
+                }
+                fetch.executeUpdate();
+            }
+        }
+
+            return item;
+        }
+
 
     @Override
     public Project update(Project item) throws SQLException {
