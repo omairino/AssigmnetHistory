@@ -78,12 +78,12 @@ public class Assignment {
         this.requestedBy = requestedBy;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+
+    public Assignment assignOperation(Object o) {
+        if (this.equals(o)) return this;
         Assignment that = (Assignment) o;
-        return id == that.id;
+        return that;
+
     }
 
     @Override
