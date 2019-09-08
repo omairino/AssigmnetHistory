@@ -2,21 +2,20 @@ package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Project;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class ProjectsDAO implements IProjectDAO{
+public class ProjectsDAO implements IProjectDAO {
     @Autowired
     private DBHandler db;
 
     @Override
-    public List<Project> getAllItems() throws SQLException {
+    public List<Project> findAll() throws SQLException {
         List<Project> projectList = new ArrayList<Project>();
 
         try (Connection conn = db.getConnection()) {
@@ -24,7 +23,7 @@ public class ProjectsDAO implements IProjectDAO{
             try (PreparedStatement ps = conn.prepareStatement(query)) {
                 try (ResultSet Rs = ps.executeQuery()) {
                     while (Rs.next()) {
-                        Project pro = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(3));
+                        Project pro = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5), (List) Arrays.asList(Rs.getArray(6)));
                         projectList.add(pro);
                     }
                 }
@@ -48,10 +47,9 @@ public class ProjectsDAO implements IProjectDAO{
                 ps.setInt(1, managerId);
 
                 try (ResultSet Rs = ps.executeQuery()) {
-
+                    Project pro = null;
                     while (Rs.next()) {
-
-                        Project pro = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(3));
+                        pro = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5), (List) Arrays.asList(Rs.getArray(6)));
                         projectList.add(pro);
                     }
                 }
@@ -65,7 +63,7 @@ public class ProjectsDAO implements IProjectDAO{
     }
 
     @Override
-    public Project insert(Project item) throws SQLException {
+    public Project add(Project item) throws SQLException {
         return null;
     }
 
