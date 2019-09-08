@@ -19,7 +19,8 @@ public class AssignmentServiceAdvice {
      * by returning internal server error status
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler({SQLException.class, NullPointerException.class})
+    @ExceptionHandler(
+            {SQLException.class, NullPointerException.class})
     public void handle() {}
 
 
