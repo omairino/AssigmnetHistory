@@ -20,6 +20,6 @@ public class ProjectController {
 
     @GetMapping("")
     public ResponseEntity<List<Project>> getProjects() throws SQLException {
-        return new ResponseEntity<>(projectsDAO.getAllItems(), HttpStatus.OK);
+        return new ResponseEntity<>(projectsDAO.findAll(), HttpStatus.OK);
     }
 }

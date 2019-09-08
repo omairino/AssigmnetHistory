@@ -2,12 +2,13 @@ package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Project;
+import com.assignments.proj.Api.model.ProjectAndSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectsDAO implements IProjectDAO {
@@ -16,21 +17,33 @@ public class ProjectsDAO implements IProjectDAO {
 
     @Override
     public List<Project> findAll() throws SQLException {
+        List<ProjectAndSkill> projectSkillList = new ArrayList<ProjectAndSkill>();
         List<Project> projectList = new ArrayList<Project>();
-
         try (Connection conn = db.getConnection()) {
-            String query = "SELECT * FROM project";
+            String query = "select id,managerid,projectName, description,startdate,skillid from project p join projectsskills s on p.id = s.projectid";
             try (PreparedStatement ps = conn.prepareStatement(query)) {
                 try (ResultSet Rs = ps.executeQuery()) {
                     while (Rs.next()) {
-                        Project pro = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5), (List) Arrays.asList(Rs.getArray(6)));
-                        projectList.add(pro);
+                        ProjectAndSkill pro = new ProjectAndSkill(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5), Rs.getInt(6));
+                        projectSkillList.add(pro);
+
+                        Project pro2 = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5));
+                        projectList.add(pro2);
                     }
                 }
             }
         }
+
+        Map<Integer, List<Integer>> collect = projectSkillList.stream()
+                .collect(Collectors.groupingBy(ProjectAndSkill::getId, Collectors.mapping(p -> p.getSkills(), Collectors.toList())));
+        int counter = 0;
+        for (Integer skill : collect.keySet()) {
+            projectList.get(counter).setSkills(collect.get(skill));
+            counter += 1;
+        }
+
         if (projectList.isEmpty()) {
-            throw new ResultsNotFoundException("No Projects  Found !! ");
+            throw new ResultsNotFoundException("No Projects  Found!! ");
         }
         return projectList;
     }
@@ -49,7 +62,7 @@ public class ProjectsDAO implements IProjectDAO {
                 try (ResultSet Rs = ps.executeQuery()) {
                     Project pro = null;
                     while (Rs.next()) {
-                        pro = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5), (List) Arrays.asList(Rs.getArray(6)));
+                        pro = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5));
                         projectList.add(pro);
                     }
                 }

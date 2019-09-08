@@ -1,18 +1,17 @@
 package com.assignments.proj.Api.model;
 
-
 import java.sql.Date;
 import java.util.List;
 
-public class Project {
-
+public class ProjectAndSkill {
     private int id;
     private int ManagerId;
     private String projectName;
     private String description;
     private Date startDate;
-    List<Integer> skills;
-    public Project(int id, int managerId, String projectName, String description, Date startDate, List<Integer> skills) {
+    private int skills;
+
+    public ProjectAndSkill(int id, int managerId, String projectName, String description, Date startDate, int skills) {
         this.id = id;
         ManagerId = managerId;
         this.projectName = projectName;
@@ -21,15 +20,7 @@ public class Project {
         this.skills = skills;
     }
 
-    public Project(int id, int managerId, String projectName, String description, Date startDate) {
-        this.id = id;
-        ManagerId = managerId;
-        this.projectName = projectName;
-        this.description = description;
-        this.startDate = startDate;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -69,12 +60,11 @@ public class Project {
         this.startDate = startDate;
     }
 
-    public List<Integer> getSkills() {
+    public int getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Integer> skills) {
+    public void setSkills(int skills) {
         this.skills = skills;
     }
-
 }
