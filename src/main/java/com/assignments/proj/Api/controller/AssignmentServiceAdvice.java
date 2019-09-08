@@ -1,27 +1,37 @@
 package com.assignments.proj.Api.controller;
 
-
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.SQLException;
-
-/**
- * Exception handler class
- */
-@ControllerAdvice
-public class AssignmentServiceAdvice {
-
-    /**
-     * handles NullPointerException, SQLException, thrown exceptions
-     * by returning internal server error status
-     */
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(
-            {SQLException.class, NullPointerException.class})
-    public void handle() {}
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
-}
+//...
+
+@Controller
+@RequestMapping("${server.error.path:${error.path:/error}}")
+public class AssignmentServiceAdvice extends AbstractErrorController {
+
+    public AssignmentServiceAdvice(ErrorAttributes errorAttributes) {
+        super(errorAttributes);
+    }
+
+    @Override
+    public String getErrorPath() {
+        return null;
+    }
+
+    @RequestMapping
+    public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+        Map<String, Object> body = getErrorAttributes(request,
+                false);
+        HttpStatus status = getStatus(request);
+        return new ResponseEntity<>(body, status);
+    }}
+
+
