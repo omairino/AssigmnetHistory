@@ -1,7 +1,10 @@
 package com.assignments.proj.Api.Test;
 
 import com.assignments.proj.Api.dao.AssignmentsDAO;
+import com.assignments.proj.Api.model.Assignment;
 import io.restassured.RestAssured;
+
+
 import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
@@ -24,8 +28,8 @@ import static org.junit.Assert.assertEquals;
 public class TestAssignmentsDAO {
     @Autowired
     private AssignmentsDAO assignmentsDAO;
-    @LocalServerPort
 
+    @LocalServerPort
     private int port;
 
     @Before
@@ -49,6 +53,7 @@ public class TestAssignmentsDAO {
         numOfPage.put("numberOfPage", 6);
         assertEquals(assignmentsDAO.numberOfPages(1, 1), numOfPage);
     }
+
 
     @Test
     public void test_get_json() throws URISyntaxException {

@@ -55,7 +55,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
     }
 
     @Override
-    public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException {
+    public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException {
         List<Assignment> assignments = new ArrayList<Assignment>();
 
         if (currPage < 1)
@@ -88,9 +88,10 @@ public class AssignmentsDAO implements AssignmentsCollection {
             }
 
         }
-        if (assignments.isEmpty())
+        if (assignments.isEmpty()) {
             throw new ResultsNotFoundException("Couldn't find assignments for this employee");
 
+        }
         return assignments;
     }
 
