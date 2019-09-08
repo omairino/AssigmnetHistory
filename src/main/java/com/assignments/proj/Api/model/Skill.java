@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class Skill {
 	
-	private Integer id;
+	private int id;
 	private String name;
 	private Type type;
 	
-	public Skill(Integer id, String name, Type type) {
+	public Skill(int id, String name, Type type) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -19,7 +19,7 @@ public class Skill {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

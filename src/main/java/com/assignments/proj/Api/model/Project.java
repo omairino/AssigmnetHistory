@@ -24,7 +24,7 @@ public class Project {
         this.description = description;
     }
 
-    public void setProjectid(int projectId) {
+    public void setId(int projectId) {
         this.id = projectId;
     }
 
