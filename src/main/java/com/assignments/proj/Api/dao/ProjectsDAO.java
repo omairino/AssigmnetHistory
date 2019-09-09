@@ -1,8 +1,10 @@
 package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
+import com.assignments.proj.Api.model.ProductSkill;
 import com.assignments.proj.Api.model.Project;
 import com.assignments.proj.Api.model.ProjectAndSkill;
+import com.assignments.proj.Api.model.TechnicalSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,124 +19,154 @@ public class ProjectsDAO implements IProjectDAO {
 
     @Override
     public List<Project> findAll() throws SQLException {
-        List<ProjectAndSkill> projectSkillList = new ArrayList<ProjectAndSkill>();
         List<Project> projectList = new ArrayList<Project>();
-        List<Integer> skillproject = new ArrayList<Integer>();
+        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
+        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+
         try (Connection conn = db.getConnection()) {
-            String query = "select id,managerid,projectName, description,startdate,skillid from project p join projectsskills s on p.id = s.projectid";
-            try (PreparedStatement ps = conn.prepareStatement(query)) {
+            String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+
+
+            try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
+
+
                 try (ResultSet Rs = ps.executeQuery()) {
+
                     while (Rs.next()) {
-                        ProjectAndSkill pro = new ProjectAndSkill(Rs.getInt(1), Rs.getInt(6));
-                        projectSkillList.add(pro);
-                        if (!skillproject.contains(Rs.getInt(1))) {
-                            skillproject.add(Rs.getInt(1));
-                            Project pro2 = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5));
-                            projectList.add(pro2);
+
+                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+                            skill.setInt(1, Rs.getInt("p.id"));
+
+                            try (ResultSet tsskill = skill.executeQuery()) {
+                                while (tsskill.next()) {
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
+                                    technicalSkillList.add(technicalSkill);
+                                }
+                            }
                         }
+
+                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+                            skill.setInt(1, Rs.getInt("p.id"));
+
+                            try (ResultSet psskill = skill.executeQuery()) {
+                                while (psskill.next()) {
+                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    productSkillList.add(productSkill);
+                                }
+                            }
+                        }
+                        Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
+                        projectList.add(pro2);
+                        technicalSkillList = new ArrayList<TechnicalSkill>();
+                        productSkillList = new ArrayList<ProductSkill>();
                     }
                 }
             }
         }
-
-        Map<Integer, List<Integer>> collect = projectSkillList.stream()
-                .collect(Collectors.groupingBy(ProjectAndSkill::getProjectID, Collectors.mapping(p -> p.getSkillID(), Collectors.toList())));
-
-
-        int counter = 0;
-        for (Integer skill : collect.keySet()) {
-            projectList.get(counter).setSkills(collect.get(skill));
-            counter += 1;
-        }
-
-        if (projectList.isEmpty()) {
-            throw new ResultsNotFoundException("No Projects  Found!! ");
-        }
         return projectList;
     }
+
 
     @Override
     public List<Project> getManagerProjects(int managerId) throws SQLException, ResultsNotFoundException {
         List<Project> projectList = new ArrayList<Project>();
-        List<ProjectAndSkill> projectSkillList = new ArrayList<ProjectAndSkill>();
-        List<Integer> skillproject = new ArrayList<Integer>();
-        try (Connection conn = db.getConnection()) {
-            String query = "select id,managerid,projectName, description,startdate,skillid from project p join projectsskills s on p.id = s.projectid where id = ?";
+        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
+        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
 
-            try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = db.getConnection()) {
+            String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p where managerid = ?";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
+
+            try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
 
                 ps.setInt(1, managerId);
 
                 try (ResultSet Rs = ps.executeQuery()) {
 
                     while (Rs.next()) {
-                        ProjectAndSkill pro = new ProjectAndSkill(Rs.getInt(1), Rs.getInt(6));
-                        projectSkillList.add(pro);
-                        if (!skillproject.contains(Rs.getInt(1))) {
-                            skillproject.add(Rs.getInt(1));
-                            Project pro2 = new Project(Rs.getInt(1), Rs.getInt(2), Rs.getString(3), Rs.getString(4), Rs.getDate(5));
-                            projectList.add(pro2);
+
+                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+                            skill.setInt(1, Rs.getInt("p.id"));
+
+                            try {
+                                ResultSet tsskill = skill.executeQuery();
+                                while (tsskill.next()) {
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
+                                    technicalSkillList.add(technicalSkill);
+                                }
+                            }catch (SQLException e){
+                                System.out.println(e);
+                            }
                         }
+
+                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+                            ps.setInt(1, Rs.getInt("p.id"));
+
+                            try{
+                            ResultSet psskill = skill.executeQuery();
+                                while (psskill.next()) {
+                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    productSkillList.add(productSkill);
+                                }
+                            } catch (SQLException e){
+                                    System.out.println(e);
+                            }
+                        }
+                        Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
+                        projectList.add(pro2);
+                        technicalSkillList = new ArrayList<TechnicalSkill>();
+                        productSkillList = new ArrayList<ProductSkill>();
                     }
                 }
             }
         }
 
-        if (projectList.isEmpty()) {
-            throw new ResultsNotFoundException("No Projects  Found !! ");
-        }
 
-        Map<Integer, List<Integer>> collect = projectSkillList.stream()
-                .collect(Collectors.groupingBy(ProjectAndSkill::getProjectID, Collectors.mapping(p -> p.getSkillID(), Collectors.toList())));
-
-
-        int counter = 0;
-        for (Integer skill : collect.keySet()) {
-            projectList.get(counter).setSkills(collect.get(skill));
-            counter += 1;
-        }
         return projectList;
     }
 
     @Override
     public Project add(Project item) throws SQLException {
-        try (Connection conn = db.getConnection()) {
+//        try (Connection conn = db.getConnection()) {
+//
+//            String insertQueryProject = "INSERT INTO project (projectName,managerID, description,startDate)" +
+//                    "VALUES (?,?,?,?)";
+//            try (PreparedStatement fetch = conn.prepareStatement(insertQueryProject, Statement.RETURN_GENERATED_KEYS)) {
+//                fetch.setString(1, item.getProjectName());
+//                fetch.setString(2, String.valueOf(item.getManagerId()));
+//                fetch.setString(3, item.getDescription());
+//                fetch.setString(4, String.valueOf(item.getStartDate()));
+//                fetch.executeUpdate();
+//                try (ResultSet generatedID = fetch.getGeneratedKeys()) {
+//                    if (generatedID.next())
+//                        item.setId(generatedID.getInt(1));
+//
+//                    else
+//                        throw new SQLException("Project insertion failed.");
+//                }
+//            }
+//
+//            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID)\n" +
+//                    "VALUES (?, ?)");
+//            int sizeSkill = item.getSkills().size();
+//            for (int i = 0; i < sizeSkill - 1; i++) {
+//                insertProjectSkill.append(",VALUES (?, ?)");
+//            }
+//            insertProjectSkill.append(";");
+//            try (PreparedStatement fetch = conn.prepareStatement(String.valueOf(insertProjectSkill), Statement.RETURN_GENERATED_KEYS)) {
+//                for (int i = 0; i < sizeSkill - 1; i++) {
+//                    fetch.setString(i + 1, String.valueOf(item.getId()));
+//                    fetch.setString(i + 2, String.valueOf(item.getSkills().get(0)));
+//                }
+//                fetch.executeUpdate();
+//            }
+//        }
 
-            String insertQueryProject = "INSERT INTO project (projectName,managerID, description,startDate)" +
-                    "VALUES (?,?,?,?)";
-            try (PreparedStatement fetch = conn.prepareStatement(insertQueryProject, Statement.RETURN_GENERATED_KEYS)) {
-                fetch.setString(1, item.getProjectName());
-                fetch.setString(2, String.valueOf(item.getManagerId()));
-                fetch.setString(3, item.getDescription());
-                fetch.setString(4, String.valueOf(item.getStartDate()));
-                fetch.executeUpdate();
-                try (ResultSet generatedID = fetch.getGeneratedKeys()) {
-                    if (generatedID.next())
-                        item.setId(generatedID.getInt(1));
-
-                    else
-                        throw new SQLException("Project insertion failed.");
-                }
-            }
-
-            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID)\n" +
-                    "VALUES (?, ?)");
-            int sizeSkill = item.getSkills().size();
-            for (int i = 0; i < sizeSkill - 1; i++) {
-                insertProjectSkill.append(",VALUES (?, ?)");
-            }
-            insertProjectSkill.append(";");
-            try (PreparedStatement fetch = conn.prepareStatement(String.valueOf(insertProjectSkill), Statement.RETURN_GENERATED_KEYS)) {
-                for (int i = 0; i < sizeSkill - 1; i++) {
-                    fetch.setString(i + 1, String.valueOf(item.getId()));
-                    fetch.setString(i + 2, String.valueOf(item.getSkills().get(0)));
-                }
-                fetch.executeUpdate();
-            }
-        }
-
-            return item;
-        }
+        return item;
+    }
 
 
     @Override

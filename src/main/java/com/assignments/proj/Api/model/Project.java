@@ -7,29 +7,22 @@ import java.util.List;
 public class Project {
 
     private int id;
-    private int ManagerId;
-    private String projectName;
+    private String name;
     private String description;
     private Date startDate;
-    List<Integer> skills;
-    public Project(int id, int managerId, String projectName, String description, Date startDate, List<Integer> skills) {
+    private List<TechnicalSkill> technicalSkill;
+    private List<ProductSkill> productSkill;
+
+    public Project(int id, String name, String description, Date startDate, List<TechnicalSkill> technicalSkill, List<ProductSkill> productSkill) {
         this.id = id;
-        ManagerId = managerId;
-        this.projectName = projectName;
+        this.name = name;
         this.description = description;
         this.startDate = startDate;
-        this.skills = skills;
+        this.technicalSkill = technicalSkill;
+        this.productSkill = productSkill;
     }
 
-    public Project(int id, int managerId, String projectName, String description, Date startDate) {
-        this.id = id;
-        ManagerId = managerId;
-        this.projectName = projectName;
-        this.description = description;
-        this.startDate = startDate;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -37,20 +30,12 @@ public class Project {
         this.id = id;
     }
 
-    public int getManagerId() {
-        return ManagerId;
+    public String getName() {
+        return name;
     }
 
-    public void setManagerId(int managerId) {
-        ManagerId = managerId;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -69,12 +54,19 @@ public class Project {
         this.startDate = startDate;
     }
 
-    public List<Integer> getSkills() {
-        return skills;
+    public List<TechnicalSkill> getTechnicalSkill() {
+        return technicalSkill;
     }
 
-    public void setSkills(List<Integer> skills) {
-        this.skills = skills;
+    public void setTechnicalSkill(List<TechnicalSkill> technicalSkill) {
+        this.technicalSkill = technicalSkill;
     }
 
+    public List<ProductSkill> getProductSkill() {
+        return productSkill;
+    }
+
+    public void setProductSkill(List<ProductSkill> productSkill) {
+        this.productSkill = productSkill;
+    }
 }

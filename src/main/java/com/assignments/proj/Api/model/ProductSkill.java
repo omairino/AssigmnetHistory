@@ -5,9 +5,18 @@ public class ProductSkill {
     private String name;
     private int level;
 
-    public ProductSkill(int id, String name) {
+    public ProductSkill(int id, String name , int level) {
         this.id = id;
         this.name = name;
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public int getId() {

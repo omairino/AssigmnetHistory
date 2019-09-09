@@ -29,7 +29,7 @@ public class ProjectController {
         return new ResponseEntity<>(projectsDAO.getManagerProjects(managerID), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping("/addproject")
     public ResponseEntity<Project> addProject(@RequestBody Project project) throws SQLException {
         System.out.println("aaaaaaaaaa");
         return new ResponseEntity<>(projectsDAO.add(project), HttpStatus.OK);
