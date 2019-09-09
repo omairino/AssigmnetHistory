@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.assignments.proj.Api.dao.AssignmentsDAO;
 import com.assignments.proj.Api.model.Assignment;
+import com.assignments.proj.Api.model.AssignmentHistory;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class AssignmentsController {
     private AssignmentsDAO assignmentsDao;
 
     @GetMapping("")
-    public ResponseEntity<List<Assignment>> getAssignmentsHistoryForEmployee(@RequestParam int employeeId, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException{
-        List<Assignment> assignments = assignmentsDao.getAssignmentsByUserID(employeeId, pageNumber,limit);
+    public ResponseEntity<List<AssignmentHistory>> getAssignmentsHistoryForEmployee(@RequestParam int employeeId, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException{
+        List<AssignmentHistory> assignments = assignmentsDao.getAssignmentsByUserID(employeeId, pageNumber,limit);
         return new ResponseEntity<>(assignments, HttpStatus.OK);
     }
 

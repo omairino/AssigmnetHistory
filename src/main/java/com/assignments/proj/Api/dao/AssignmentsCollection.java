@@ -2,6 +2,7 @@ package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Assignment;
+import com.assignments.proj.Api.model.AssignmentHistory;
 import org.json.simple.JSONObject;
 
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public interface AssignmentsCollection extends IDAO<Assignment> {
      * @throws SQLException in case of malformed sql queries and database errors
      * @throws ResultsNotFoundException in case there are no results to found
      */
-    List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException;
+    List<AssignmentHistory> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException, ResultsNotFoundException;
 
     /**
      * retrieves the number of pages, used for pagination
