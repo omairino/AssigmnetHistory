@@ -4,25 +4,23 @@ import java.util.List;
 
 public class Employee {
 
-	
+
 	private int id;
-	private String name;
-	private String password;
 	private int managerID;
-	private String email;
-	private String phone;
-	private List<Skill> skills;
-	public Employee(int id, String name, String password, int managerID, String email, String phone,
-			List<Skill> skills) {
-		super();
+	private String name;
+	private List <TechnicalSkill> technicalSkills;
+	private List <ProductSkill> productSkills;
+	private String img;
+
+	public Employee(int id, int managerID, String name, List<TechnicalSkill> technicalSkills, List<ProductSkill> productSkills, String img) {
 		this.id = id;
-		this.name = name;
-		this.password = password;
 		this.managerID = managerID;
-		this.email = email;
-		this.phone = phone;
-		this.skills = skills;
+		this.name = name;
+		this.technicalSkills = technicalSkills;
+		this.productSkills = productSkills;
+		this.img = img;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -31,73 +29,32 @@ public class Employee {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
+	public List<TechnicalSkill> getTechnicalSkills() {
+		return technicalSkills;
 	}
 
-	public Integer getManagerID() {
-		return managerID;
-	}
-	public void setManagerID(int managerID) {
-		this.managerID = managerID;
+	public void setTechnicalSkills(List<TechnicalSkill> technicalSkills) {
+		this.technicalSkills = technicalSkills;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public List<ProductSkill> getProductSkills() {
+		return productSkills;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setProductSkills(List<ProductSkill> productSkills) {
+		this.productSkills = productSkills;
 	}
 
-	public List<Skill> getSkills() {
-		return this.skills;
+	public String getImg() {
+		return img;
 	}
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
+	public void setImg(String img) {
+		this.img = img;
 	}
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((id == null) ? 0 : id.hashCode());
-//		return result;
-//	}
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Employee other = (Employee) obj;
-//		if (id == null) {
-//			if (other.id != null)
-//				return false;
-//		} else if (!id.equals(other.id))
-//			return false;
-//		return true;
-//	}
-	
-	
-	
-	
-
-	
 }

@@ -42,7 +42,7 @@ public class AssignmentsController {
     }
 
     @GetMapping("/pages")
-    public ResponseEntity<JSONObject> getNumverOfPages(@RequestParam int employeeId, @RequestParam int limit) throws SQLException {
+    public ResponseEntity<JSONObject> getNumberOfPages(@RequestParam int employeeId, @RequestParam int limit) throws SQLException {
         JSONObject jsonObject = assignmentsDao.numberOfPages(employeeId, limit);
         return new ResponseEntity<>(jsonObject, HttpStatus.OK);
     }
