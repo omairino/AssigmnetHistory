@@ -95,7 +95,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
         return assignments;
     }
 
-    @Override
+
     public List<Assignment> getAllItems() throws SQLException, ResultsNotFoundException {
         List<Assignment> assignments = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
         return assignments;
     }
 
-    @Override
+
     public Assignment insert(Assignment item) throws SQLException {
 
         try (Connection conn = db.getConnection()) {
@@ -164,6 +164,16 @@ public class AssignmentsDAO implements AssignmentsCollection {
             }
         }
         return item;
+    }
+
+    @Override
+    public List<Assignment> findAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Assignment add(Assignment item) throws SQLException {
+        return null;
     }
 
     @Override
