@@ -1,41 +1,26 @@
 package com.assignments.proj.Api.model;
 
 import java.sql.Date;
-import java.util.Objects;
 
 public class Assignment {
     private int id;
-    private String projectName;
-    private String assignmentName;
+    private int projectID;
+    private int employeeID;
     private Date startDate;
     private Date endDate;
+    private int requestFromManagerID;
+    private int requestToManagerID;
     private String status;
-    private String requestedBy;
 
-    public Assignment(int id, String projectName, String assignmentName, Date startDate, Date endDate, String status, String requestedBy) {
+    public Assignment(int id, int projectID, int employeeID, Date startDate, Date endDate, int requestFromManagerID, int requestToManagerID, String status) {
         this.id = id;
-        this.projectName = projectName;
-        this.assignmentName = assignmentName;
+        this.projectID = projectID;
+        this.employeeID = employeeID;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.requestFromManagerID = requestFromManagerID;
+        this.requestToManagerID = requestToManagerID;
         this.status = status;
-        this.requestedBy = requestedBy;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public void setAssignmentName(String assignmentName) {
-        this.assignmentName = assignmentName;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public String getAssignmentName() {
-        return assignmentName;
     }
 
     public int getId() {
@@ -44,6 +29,22 @@ public class Assignment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
+
+    public int getEmployeeID() {
+        return employeeID;
+    }
+
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
     public Date getStartDate() {
@@ -62,32 +63,27 @@ public class Assignment {
         this.endDate = endDate;
     }
 
+    public int getRequestFromManagerID() {
+        return requestFromManagerID;
+    }
+
+    public void setRequestFromManagerID(int requestFromManagerID) {
+        this.requestFromManagerID = requestFromManagerID;
+    }
+
+    public int getRequestToManagerID() {
+        return requestToManagerID;
+    }
+
+    public void setRequestToManagerID(int requestToManagerID) {
+        this.requestToManagerID = requestToManagerID;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getRequestedBy() {
-        return requestedBy;
-    }
-
-    public void setRequestedBy(String requestedBy) {
-        this.requestedBy = requestedBy;
-    }
-
-
-    public Assignment assignOperation(Object o) {
-        if (this.equals(o)) return this;
-        Assignment that = (Assignment) o;
-        return that;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }

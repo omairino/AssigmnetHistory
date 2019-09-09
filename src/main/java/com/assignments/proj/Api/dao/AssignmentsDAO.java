@@ -56,100 +56,106 @@ public class AssignmentsDAO implements AssignmentsCollection {
 
     @Override
     public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException {
-        List<Assignment> assignments = new ArrayList<Assignment>();
-
-        if (currPage < 1)
-            currPage = 1;
-
-        int offset = (currPage - 1) * limit; // index of which row to start retrieving data
-
-        try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
-                    + " on p.id = a.projectid"
-                    + " where a.employeeid = ? limit ?,?";
-
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-                command.setInt(1, id);
-                command.setInt(2, offset);
-                command.setInt(3, limit);
-
-                try (ResultSet result = command.executeQuery()) {
-                    while (result.next()) {
-                        assignments.add(new Assignment(result.getInt("a.id"),
-                                result.getString("projectName"),
-                                result.getString("assignmentName"),
-                                result.getDate("startDate"),
-                                result.getDate("endDate"),
-                                result.getString("status"),
-                                result.getString("requestedBy"))
-                        );
-                    }
-                }
-            }
-
-        }
-        if (assignments.isEmpty()) {
-            throw new ResultsNotFoundException("Couldn't find assignments for this employee");
-
-        }
-        return assignments;
+//        List<Assignment> assignments = new ArrayList<Assignment>();
+//
+//        if (currPage < 1)
+//            currPage = 1;
+//
+//        int offset = (currPage - 1) * limit; // index of which row to start retrieving data
+//
+//        try (Connection conn = db.getConnection()) {
+//            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
+//                    + " on p.id = a.projectid"
+//                    + " where a.employeeid = ? limit ?,?";
+//
+//            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+//                command.setInt(1, id);
+//                command.setInt(2, offset);
+//                command.setInt(3, limit);
+//
+//                try (ResultSet result = command.executeQuery()) {
+//                    while (result.next()) {
+//                        assignments.add(new Assignment(result.getInt("a.id"),
+//                                result.getString("projectName"),
+//                                result.getString("assignmentName"),
+//                                result.getDate("startDate"),
+//                                result.getDate("endDate"),
+//                                result.getString("status"),
+//                                result.getString("requestedBy"))
+//                        );
+//                    }
+//                }
+//            }
+//
+//        }
+//        if (assignments.isEmpty()) {
+//            throw new ResultsNotFoundException("Couldn't find assignments for this employee");
+//
+//        }
+//        return assignments;
+        return null;
     }
 
 
     public List<Assignment> getAllItems() throws SQLException, ResultsNotFoundException {
-        List<Assignment> assignments = new ArrayList<>();
-
-        try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy " +
-                    "from project p inner join assignmenthistory a "
-                    + " on p.id = a.projectid";
-
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-
-                try (ResultSet result = command.executeQuery()) {
-                    while (result.next()) {
-                        assignments.add(new Assignment(result.getInt("a.id"),
-                                result.getString("projectName"),
-                                result.getString("assignmentName"),
-                                result.getDate("startDate"),
-                                result.getDate("endDate"),
-                                result.getString("status"),
-                                result.getString("requestedBy"))
-                        );
-                    }
-                }
-            }
-
-        }
-        if (assignments.isEmpty())
-            throw new ResultsNotFoundException("Couldn't find any assignment");
-
-        return assignments;
+//        List<Assignment> assignments = new ArrayList<>();
+//
+//        try (Connection conn = db.getConnection()) {
+//            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy " +
+//                    "from project p inner join assignmenthistory a "
+//                    + " on p.id = a.projectid";
+//
+//            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+//
+//                try (ResultSet result = command.executeQuery()) {
+//                    while (result.next()) {
+//                        assignments.add(new Assignment(result.getInt("a.id"),
+//                                result.getString("projectName"),
+//                                result.getString("assignmentName"),
+//                                result.getDate("startDate"),
+//                                result.getDate("endDate"),
+//                                result.getString("status"),
+//                                result.getString("requestedBy"))
+//                        );
+//                    }
+//                }
+//            }
+//
+//        }
+//        if (assignments.isEmpty())
+//            throw new ResultsNotFoundException("Couldn't find any assignment");
+//
+        return null;
     }
 
 
-    public Assignment insert(Assignment item) throws SQLException {
 
+    @Override
+    public List<Assignment> findAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Assignment add(Assignment item) throws SQLException {
         try (Connection conn = db.getConnection()) {
             // fetch project id by name since project is a unique name which
             // guarantees retrieving the appropriate id
-            String projectQuery = "SELECT id FROM project WHERE projectName = ?";
-            String insertQuery = "INSERT INTO assignmenthistory (projectID, assignmentName, startDate, endDate, status, requestedBy) VALUES(?, ?, ?, ?, ?, ?)";
+            String projectQuery = "SELECT id FROM project WHERE id = ?";
+            String insertQuery = "INSERT INTO assignment (projectid,employeeid,startdate,enddate,requestedFromManager,requestedToManager,status) VALUES(?, ?, ?, ?, ?, ?,?)";
             try (PreparedStatement fetch = conn.prepareStatement(projectQuery)) {
-                fetch.setString(1, item.getProjectName());
+                fetch.setString(1, String.valueOf(item.getProjectID()));
                 try (ResultSet resultSet = fetch.executeQuery()) {
 
                     if (resultSet.next()) {
-                        int projectID = resultSet.getInt(1);
                         // preparing a statement that guarantees returning the auto generated id
                         try (PreparedStatement command = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-                            command.setInt(1, projectID);
-                            command.setString(2, item.getAssignmentName());
+                            command.setInt(1, item.getProjectID());
+                            command.setInt(2, item.getEmployeeID());
                             command.setDate(3, item.getStartDate());
                             command.setDate(4, item.getEndDate());
-                            command.setString(5, item.getStatus());
-                            command.setString(6, item.getRequestedBy());
-
+                            command.setInt(5, item.getRequestFromManagerID());
+                            command.setInt(6, item.getRequestToManagerID());
+                            command.setString(7, item.getStatus());
                             command.executeUpdate();
                             try (ResultSet generatedID = command.getGeneratedKeys()) {
                                 if (generatedID.next())
@@ -167,36 +173,26 @@ public class AssignmentsDAO implements AssignmentsCollection {
     }
 
     @Override
-    public List<Assignment> findAll() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Assignment add(Assignment item) throws SQLException {
-        return null;
-    }
-
-    @Override
     public Assignment update(Assignment item) throws SQLException {
-        try (Connection conn = db.getConnection()) {
-            String updateQuery = "UPDATE assignmenthistory SET startDate = ?, endDate = ?, status = ?, requestedBy = ?;";
-            // preparing a statement that guarantees returning the auto generated id
-            try (PreparedStatement command = conn.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
-
-                command.setDate(1, item.getStartDate());
-                command.setDate(2, item.getEndDate());
-                command.setString(3, item.getStatus());
-                command.setString(4, item.getRequestedBy());
-
-                command.executeUpdate();
-                try (ResultSet generatedID = command.getGeneratedKeys()) {
-                    if (generatedID.next())
-                        item.setId(generatedID.getInt(1));
-                    else
-                        throw new SQLException("Assignment update failed.");
-                }
-            }
-        }
+//        try (Connection conn = db.getConnection()) {
+//            String updateQuery = "UPDATE assignmenthistory SET startDate = ?, endDate = ?, status = ?, requestedBy = ?;";
+//            // preparing a statement that guarantees returning the auto generated id
+//            try (PreparedStatement command = conn.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
+//
+//                command.setDate(1, item.getStartDate());
+//                command.setDate(2, item.getEndDate());
+//                command.setString(3, item.getStatus());
+//                command.setString(4, item.getRequestedBy());
+//
+//                command.executeUpdate();
+//                try (ResultSet generatedID = command.getGeneratedKeys()) {
+//                    if (generatedID.next())
+//                        item.setId(generatedID.getInt(1));
+//                    else
+//                        throw new SQLException("Assignment update failed.");
+//                }
+//            }
+//        }
         return item;
     }
 
@@ -217,32 +213,33 @@ public class AssignmentsDAO implements AssignmentsCollection {
 
     @Override
     public Assignment find(int id) throws SQLException, ResultsNotFoundException {
-        Assignment assignment = null;
-        try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
-                    + " on p.id = a.projectid"
-                    + " where a.id = ?";
-
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-                command.setInt(1, id);
-
-                try (ResultSet result = command.executeQuery()) {
-                    if (result.next()) {
-                        assignment = new Assignment(result.getInt("a.id"),
-                                result.getString("projectName"),
-                                result.getString("assignmentName"),
-                                result.getDate("startDate"),
-                                result.getDate("endDate"),
-                                result.getString("status"),
-                                result.getString("requestedBy"));
-                    }
-                }
-            }
-        }
-
-        if (assignment == null)
-            throw new ResultsNotFoundException("Couldn't find requested assignment");
-
-        return assignment;
+//        Assignment assignment = null;
+//        try (Connection conn = db.getConnection()) {
+//            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
+//                    + " on p.id = a.projectid"
+//                    + " where a.id = ?";
+//
+//            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+//                command.setInt(1, id);
+//
+//                try (ResultSet result = command.executeQuery()) {
+//                    if (result.next()) {
+//                        assignment = new Assignment(result.getInt("a.id"),
+//                                result.getString("projectName"),
+//                                result.getString("assignmentName"),
+//                                result.getDate("startDate"),
+//                                result.getDate("endDate"),
+//                                result.getString("status"),
+//                                result.getString("requestedBy"));
+//                    }
+//                }
+//            }
+//        }
+//
+//        if (assignment == null)
+//            throw new ResultsNotFoundException("Couldn't find requested assignment");
+//
+//        return assignment;
+        return null;
     }
 }
