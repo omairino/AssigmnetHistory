@@ -51,7 +51,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                         employees.add(new Employee(result.getInt("u.id"),
                                 result.getString("u.name"),
                                 result.getInt("u.manager_id"),
-                                result.getString("u.image"),t,p)
+//                                result.getString("u.image"),t,p)
                         );
                     }
                 }
