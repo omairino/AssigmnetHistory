@@ -13,46 +13,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class EmployeeDAO implements IEmployeeDAO {
     @Autowired
     private DBHandler db;
+
     @Override
     public List<Employee> getEmployeesByManagerID(int managerID, int pageNumber, int limit) throws SQLException {
-        List<Employee> employees=new ArrayList<>();
-         if(pageNumber<1) {
-             pageNumber = 1;
-         }
-         int offset=(pageNumber-1)*limit;
+        List<Employee> employees = new ArrayList<>();
+        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
+        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+
+        if (pageNumber < 1) {
+            pageNumber = 1;
+        }
+        int offset = (pageNumber - 1) * limit;
 
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "SELECT u.id, concat(u.first_name , \" \" , u.last_name) as name, u. manager_id, u.image,\n" +
-                    " s.type,  s.name, es.skillid, es.level  from \n" +
-                    "users u join employeeskills es on u.id=es.employeeID join skills s on s.id=es.skillid" +
-                    "where u.employeeid = ? limit ?,?;";
+            String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
+                    "as 'manager ID', u.image from users u where manager_id = ?;";
+            String technicalSkillQuery = " SELECT s.id, s.name FROM users u join employeeskills es on u.id = " +
+                    "es.employeeID join skills s on es.skillid = s.id where type = \"TECHNICAL\" and u.id = ? ";
+            String productSkillQuery = "";
+//            String sqlCommand = "SELECT u.id, concat(u.first_name , \" \" , u.last_name) as name, u. manager_id, u.image,\n" +
+//                    " s.type,  s.name, es.skillid, es.level  from \n" +
+//                    "users u join employeeskills es on u.id=es.employeeID join skills s on s.id=es.skillid" +
+//                    "where u.employeeid = ? limit ?, offset ?;";
 
-            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+            try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
                 command.setInt(1, managerID);
-                command.setInt(2, offset);
-                command.setInt(3, limit);
+//                command.setInt(2, limit);
+//                command.setInt(3, offset);
 
                 try (ResultSet result = command.executeQuery()) {
-
-//                    ProductSkill p = new ProductSkill();
                     while (result.next()) {
-                        if(result.getString("s.type").equals("Technical")){
-                            TechnicalSkill t= new TechnicalSkill(
-                                    result.getInt("s.skillid"),
-                                    result.getString("s.name"),
-                                    result.getInt("s.level")
-                            );
+                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+                            // hon mngdrsh nhot bdl result.getInt  -> managerID w5ls?
+                            skill.setInt(1, result.getInt("u.id"));
+
+                            try (ResultSet tsSkill = skill.executeQuery()) {
+                                while (tsSkill.next()) {
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), 0);
+                                    technicalSkillList.add(technicalSkill);
+                                }
+                            }
                         }
-                        else
-                        employees.add(new Employee(result.getInt("u.id"),
-                                result.getString("u.name"),
+                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+                            skill.setInt(1, result.getInt("u.id"));
+
+                            try (ResultSet psskill = skill.executeQuery()) {
+                                while (psskill.next()) {
+                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    productSkillList.add(productSkill);
+                                }
+                            }
+                        }
+
+                        Employee employee = new Employee(result.getInt("u.id"),
                                 result.getInt("u.manager_id"),
-//                                result.getString("u.image"),t,p)
-                        );
+                                result.getString("u.name"),
+                                technicalSkillList, productSkillList,
+                                result.getString("u.image"));
+                        employees.add(employee);
+                        // hay 3mlnaha 3shan njdd llemp aljded?
+                        technicalSkillList = new ArrayList<TechnicalSkill>();
+                        productSkillList = new ArrayList<ProductSkill>();
+
                     }
                 }
             }
@@ -60,7 +87,7 @@ public class EmployeeDAO implements IEmployeeDAO {
         }
 
 
-        return null;
+        return employees;
     }
 
     @Override
