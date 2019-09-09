@@ -4,14 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.assignments.proj.Api.dao.AssignmentsDAO;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.assignments.proj.Api.model.Assignment;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.assignments.proj.Api.model.Assignment;
 
 @RestController
 @RequestMapping(path = "/assignments")
@@ -28,7 +26,7 @@ public class AssignmentsController {
 
     @PostMapping("/")
     public ResponseEntity<Assignment> addAssignment(@RequestBody Assignment assignment) throws SQLException {
-        return new ResponseEntity<>(assignmentsDao.insert(assignment), HttpStatus.OK);
+        return new ResponseEntity<>(assignmentsDao.add(assignment), HttpStatus.OK);
     }
 
     @PostMapping("/update/")

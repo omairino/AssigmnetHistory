@@ -3,14 +3,12 @@ package com.assignments.proj.Api.dao;
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.ProductSkill;
 import com.assignments.proj.Api.model.Project;
-import com.assignments.proj.Api.model.ProjectAndSkill;
 import com.assignments.proj.Api.model.TechnicalSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ProjectsDAO implements IProjectDAO {
