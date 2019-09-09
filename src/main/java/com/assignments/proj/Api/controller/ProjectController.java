@@ -3,7 +3,9 @@ package com.assignments.proj.Api.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.assignments.proj.Api.dao.AddProjectDAO;
 import com.assignments.proj.Api.dao.IProjectDAO;
+import com.assignments.proj.Api.model.AddProject;
 import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.model.Project;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class ProjectController {
 
     @Autowired
     private IProjectDAO projectsDAO;
+    @Autowired
+    private AddProjectDAO addProjectDAO;
 
     @GetMapping("")
     public ResponseEntity<List<Project>> getProjects() throws SQLException {
@@ -30,8 +34,8 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public ResponseEntity<Project> addProject(@RequestBody Project project) throws SQLException {
+    public ResponseEntity<AddProject> addProject(@RequestBody AddProject project) throws SQLException {
         System.out.println("aaaaaaaaaa");
-        return new ResponseEntity<>(projectsDAO.add(project), HttpStatus.OK);
+        return new ResponseEntity<>(addProjectDAO.add(project), HttpStatus.OK);
     }
 }
