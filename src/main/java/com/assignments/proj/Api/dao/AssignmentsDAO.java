@@ -25,7 +25,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
 
         // query retrieves the number of entries in a table
         // COUNT(ID) can be changed in the future according to what id to be used
-        String query = "SELECT COUNT(id) FROM assignmenthistory";
+        String query = "SELECT COUNT(id) FROM assignment";
         int rowCount = 0;
         Integer numOfPages = 0;
         JSONObject result = new JSONObject();
@@ -103,19 +103,19 @@ public class AssignmentsDAO implements AssignmentsCollection {
 
 
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy " +
-                    "from project p inner join assignmenthistory a "
-                    + " on p.id = a.projectid";
+            String sqlCommand = "Select a.id,a.projectID,a.projectName,a.startDate,a.endDate,a.requestFromManagerID,status" +
+                    "from project p inner join assignment a "
+                    + " on p.id = a.projectID";
             try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
 
                 try (ResultSet result = command.executeQuery()) {
                     while (result.next()) {
                         assignmentsHistory.add(new AssignmentHistory(result.getInt("a.id"),
-                                result.getInt("projectID"),
-                                result.getString("assignmentName"),
-                                result.getDate("startDate"),
-                                result.getDate("endDate"),
-                                result.getInt("requestedFromManagerID"),
+                                result.getInt("a.projectID"),
+                                result.getString("a.projectName"),
+                                result.getDate("a.startDate"),
+                                result.getDate("a.endDate"),
+                                result.getInt("a.requestedFromManagerID"),
                                 result.getString("status")));
                     }
                 }
@@ -144,11 +144,11 @@ public class AssignmentsDAO implements AssignmentsCollection {
                             assignmentsList.add(new Assignment(result.getInt("a.id"),
                                     result.getInt("a.projectID"),
                                     result.getInt("a.employeeID"),
-                                    result.getDate("startDate"),
-                                    result.getDate("endDate"),
-                                    result.getInt("requestedFromManagerID"),
-                                    result.getInt("requestedForManagerID"),
-                                    result.getString("status")));
+                                    result.getDate("a.startDate"),
+                                    result.getDate("a.endDate"),
+                                    result.getInt("a.requestedFromManagerID"),
+                                    result.getInt("a.requestedForManagerID"),
+                                    result.getString("a.status")));
 
                         }
                     }
