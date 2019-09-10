@@ -101,6 +101,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
     public List<Assignment> getAllItems() throws SQLException, ResultsNotFoundException {
         List<AssignmentHistory> assignmentsHistory = new ArrayList<>();
 
+
         try (Connection conn = db.getConnection()) {
             String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy " +
                     "from project p inner join assignmenthistory a "
