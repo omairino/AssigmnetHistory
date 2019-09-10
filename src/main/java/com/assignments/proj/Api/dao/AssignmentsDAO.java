@@ -3,6 +3,7 @@ package com.assignments.proj.Api.dao;
 import com.assignments.proj.Api.exceptions.BadRequestException;
 import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
+import com.assignments.proj.Api.model.AssignmentHistory;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -55,45 +56,45 @@ public class AssignmentsDAO implements AssignmentsCollection {
     }
 
     @Override
-    public List<Assignment> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException {
-//        List<Assignment> assignments = new ArrayList<Assignment>();
-//
-//        if (currPage < 1)
-//            currPage = 1;
-//
-//        int offset = (currPage - 1) * limit; // index of which row to start retrieving data
-//
-//        try (Connection conn = db.getConnection()) {
-//            String sqlCommand = "Select a.id,projectName,assignmentName,startDate,endDate,status,requestedBy from project p inner join assignmenthistory a "
-//                    + " on p.id = a.projectid"
-//                    + " where a.employeeid = ? limit ?,?";
-//
-//            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
-//                command.setInt(1, id);
-//                command.setInt(2, offset);
-//                command.setInt(3, limit);
-//
-//                try (ResultSet result = command.executeQuery()) {
-//                    while (result.next()) {
-//                        assignments.add(new Assignment(result.getInt("a.id"),
-//                                result.getString("projectName"),
-//                                result.getString("assignmentName"),
-//                                result.getDate("startDate"),
-//                                result.getDate("endDate"),
-//                                result.getString("status"),
-//                                result.getString("requestedBy"))
-//                        );
-//                    }
-//                }
-//            }
-//
-//        }
-//        if (assignments.isEmpty()) {
-//            throw new ResultsNotFoundException("Couldn't find assignments for this employee");
-//
-//        }
-//        return assignments;
-        return null;
+    public List<AssignmentHistory> getAssignmentsByUserID(int id, int currPage, int limit) throws SQLException {
+        List<AssignmentHistory> assignments = new ArrayList<AssignmentHistory>();
+
+        if (currPage < 1)
+            currPage = 1;
+
+        int offset = (currPage - 1) * limit; // index of which row to start retrieving data
+
+        try (Connection conn = db.getConnection()) {
+            String sqlCommand = "Select a.id,a.projectID,p.projectName,a.startDate,a.endDate,a.status,a.requestedFromManager from project p join assignment a \n"
+                    + " on p.id = a.projectID"
+                    + " where a.employeeid = ? limit ?,?";
+
+            try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
+                command.setInt(1, id);
+                command.setInt(2, offset);
+                command.setInt(3, limit);
+
+                try (ResultSet result = command.executeQuery()) {
+                    while (result.next()) {
+                        assignments.add(new AssignmentHistory(
+                                result.getInt("a.id"),
+                                result.getInt("a.projectID"),
+                                result.getString("p.projectName"),
+                                result.getDate("a.startDate"),
+                                result.getDate("a.endDate"),
+                                result.getInt("a.requestedFromManager"),
+                                result.getString("a.status"))
+                        );
+                    }
+                }
+            }
+
+        }
+        if (assignments.isEmpty()) {
+            throw new ResultsNotFoundException("Couldn't find assignments for this employee");
+
+        }
+        return assignments;
     }
 
 
