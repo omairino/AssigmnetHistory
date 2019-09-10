@@ -68,7 +68,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
             String sqlCommand = "Select a.id,a.project_id,p.name,a.start_date,a.end_date,a.status,a.requested_from_manager_id" +
                     " from project p join assignment a \n"
                     + " on p.id = a.project_id"
-                    + " where a.employee_id = ? limit ?,offset ?";
+                    + " where a.employee_id = ? limit ? offset ?";
 
             try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
                 command.setInt(1, id);
