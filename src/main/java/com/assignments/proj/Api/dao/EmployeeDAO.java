@@ -29,10 +29,10 @@ public class EmployeeDAO implements IEmployeeDAO {
 
         try (Connection conn = db.getConnection()) {
             String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
-                    "as 'manager ID', u.image from users u where manager_id = ? limit ?, offset ?;";
-            String technicalSkillQuery = " SELECT s.id, s.name FROM users u join employeeskill es on u.id = " +
+                    ", u.image from users u where manager_id = ? limit ? offset ?;";
+            String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
                     "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? ";
-            String productSkillQuery = "SELECT s.id, s.name FROM users u join employeeskill es on u.id = \" +\n" +
+            String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
                     "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ?";
 
             try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
@@ -70,9 +70,9 @@ public class EmployeeDAO implements IEmployeeDAO {
                         }
                         Employee employee = new Employee(result.getInt("u.id"),
                                 result.getInt("u.manager_id"),
-                                result.getString("u.name"),
+                                result.getString("name"),
                                 technicalSkillList, productSkillList,
-                                result.getString("u.img"));
+                                result.getString("u.image"));
                         employees.add(employee);
                         technicalSkillList = new ArrayList<TechnicalSkill>();
                         productSkillList = new ArrayList<ProductSkill>();
