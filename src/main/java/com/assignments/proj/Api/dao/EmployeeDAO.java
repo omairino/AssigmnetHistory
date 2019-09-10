@@ -84,6 +84,7 @@ public class EmployeeDAO implements IEmployeeDAO {
         }
         return employees;
     }
+
     @Override
     public List<Employee> searchEmployeesBySkillName(String skillName, int pageNumber, int limit) throws SQLException{
         List<Employee> employees = new ArrayList<>();
@@ -161,7 +162,7 @@ public class EmployeeDAO implements IEmployeeDAO {
         List<ProductSkill> productskillList = new ArrayList<ProductSkill>();
         try (Connection conn = db.getConnection()) {
             String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
-                    ", u.image from users u where project_id = ?";
+                    ", u.image from users u join assignment a on u.id = a.employee_id where a.project_id = ?";
             String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
                     "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? ";
             String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
