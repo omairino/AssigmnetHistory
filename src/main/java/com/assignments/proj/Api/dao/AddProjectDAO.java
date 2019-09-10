@@ -22,7 +22,7 @@ public class AddProjectDAO implements IDAO<AddProject> {
         int projectID;
         try (Connection conn = db.getConnection()) {
 
-            String insertQueryProject = "INSERT INTO project (projectName,managerID, description,startDate)" +
+            String insertQueryProject = "INSERT INTO project (name, manager_id, description,start_date)" +
                     "VALUES (?,?,?,?)";
             try (PreparedStatement fetch = conn.prepareStatement(insertQueryProject, Statement.RETURN_GENERATED_KEYS)) {
                 fetch.setString(1, item.getProjectName());
