@@ -22,7 +22,7 @@ public class SkillsController {
     private SkillDAO skillsDAO;
 
     @GetMapping("")
-    public ResponseEntity<List<Skill>> getAssignmentsHistoryForEmployee() throws SQLException {
+    public ResponseEntity<List<Skill>> getskills() throws SQLException {
         List<Skill> skills = skillsDAO.findAll();
         return new ResponseEntity<>(skills, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.assignments.proj.Api.dao;
 
+import com.assignments.proj.Api.exceptions.BadRequestException;
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
 import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.model.ProductSkill;
@@ -23,7 +24,7 @@ public class SkillDAO implements IDAO<Skill>{
 
 
     @Override
-    public List<Skill> findAll() throws SQLException {
+    public List<Skill> findAll() throws SQLException, BadRequestException {
         List<Skill> skillsList= new ArrayList<Skill>();
         List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
         List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
@@ -47,8 +48,8 @@ public class SkillDAO implements IDAO<Skill>{
 
                 try (ResultSet psskill = ps.executeQuery()) {
                     while (psskill.next()) {
-                        TechnicalSkill technicalSkill = new TechnicalSkill(psskill.getInt(1), psskill.getString(2), 0);
-                        technicalSkillList.add(technicalSkill);
+                        ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                        productSkillList.add(productSkill);
                     }
                 }
 
@@ -58,7 +59,7 @@ public class SkillDAO implements IDAO<Skill>{
         if (skillsList.isEmpty())
             throw new ResultsNotFoundException("Couldn't find Skills List");
 
-        return null;
+        return skillsList;
     }}
 
 
