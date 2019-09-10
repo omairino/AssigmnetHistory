@@ -21,8 +21,20 @@ public class EmployeeController {
     private EmployeeDAO employeeDAO;
 
     @GetMapping("")
-    public ResponseEntity<List<Employee>> getEmployeesHistoryForEmployee(@RequestParam int managerID, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException {
+    public ResponseEntity<List<Employee>> getEmployeesByManagerID(@RequestParam int managerID, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException {
         List<Employee> employees = employeeDAO.getEmployeesByManagerID(managerID, pageNumber,limit);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/getbyskill")
+    public ResponseEntity<List<Employee>> searchEmployeesBySkillName(@RequestParam String skillName, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        List<Employee> employees = employeeDAO.searchEmployeesBySkillName(skillName, pageNumber,limit);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+    @GetMapping("/getbyprojectid")
+    public ResponseEntity<List<Employee>> getEmployeesByProjectID(@RequestParam int projectid) throws SQLException {
+        List<Employee> employees = employeeDAO. getEmployeesByProjectID(projectid);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }

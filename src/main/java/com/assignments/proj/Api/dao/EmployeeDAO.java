@@ -84,7 +84,128 @@ public class EmployeeDAO implements IEmployeeDAO {
         }
         return employees;
     }
+    @Override
+    public List<Employee> searchEmployeesBySkillName(String skillName, int pageNumber, int limit) throws SQLException{
+        List<Employee> employees = new ArrayList<>();
+        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
+        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
 
+        if (pageNumber < 1) {
+            pageNumber = 1;
+        }
+        int offset = (pageNumber - 1) * limit;
+        try (Connection conn = db.getConnection()) {
+            String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
+                    ", u.image from users u limit ? offset ?;";
+            String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
+                    "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? and s.name=?; ";
+            String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
+                    "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ? and s.name=?;";
+
+            try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
+                command.setInt(1, limit);
+                command.setInt(2, offset);
+
+                try (ResultSet result = command.executeQuery()) {
+                    while (result.next()) {
+                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+                            skill.setInt(1, result.getInt("u.id"));
+                            skill.setString(2,skillName);
+
+                            try (ResultSet tsSkill = skill.executeQuery()) {
+                                while (tsSkill.next()) {
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+                                    technicalSkillList.add(technicalSkill);
+                                }
+                            }
+                            catch(SQLException e){
+                                System.out.println(e);
+                            }
+                        }
+                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+                            skill.setInt(1, result.getInt("u.id"));
+                            skill.setString(2,skillName);
+
+                            try (ResultSet psSkill = skill.executeQuery()) {
+                                while (psSkill.next()) {
+                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+                                    productSkillList.add(productSkill);
+                                }
+                            }
+                            catch(SQLException e){
+                                System.out.println(e);
+                            }
+                        }
+                        Employee employee = new Employee(result.getInt("u.id"),
+                                result.getInt("u.manager_id"),
+                                result.getString("name"),
+                                technicalSkillList, productSkillList,
+                                result.getString("u.image"));
+                        employees.add(employee);
+                        technicalSkillList = new ArrayList<TechnicalSkill>();
+                        productSkillList = new ArrayList<ProductSkill>();
+
+                    }
+                }
+            }
+
+        }
+        return employees;
+    }
+
+
+
+    public List<Employee> getEmployeesByProjectID(int projectid) throws SQLException {
+        List<Employee> employees = new ArrayList<>();
+        List<TechnicalSkill> technicalskillList = new ArrayList<TechnicalSkill>();
+        List<ProductSkill> productskillList = new ArrayList<ProductSkill>();
+        try (Connection conn = db.getConnection()) {
+            String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
+                    ", u.image from users u where project_id = ?";
+            String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
+                    "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? ";
+            String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
+                    "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ?";
+            try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
+                command.setInt(1, projectid);
+                try (ResultSet result = command.executeQuery()) {
+                    while (result.next()) {
+                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+                            skill.setInt(1, result.getInt("u.id"));
+                            try (ResultSet tsSkill = skill.executeQuery()) {
+                                while (tsSkill.next()) {
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+                                    technicalskillList.add(technicalSkill);
+                                }
+                            } catch (SQLException e) {
+                                System.out.println(e);
+                            }
+                        }
+                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+                            skill.setInt(1, result.getInt("u.id"));
+                            try (ResultSet psSkill = skill.executeQuery()) {
+                                while (psSkill.next()) {
+                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+                                    productskillList.add(productSkill);
+                                }
+                            } catch (SQLException e) {
+                                System.out.println(e);
+                            }
+                        }
+                        Employee employee = new Employee(result.getInt("u.id"),
+                                result.getInt("u.manager_id"),
+                                result.getString("name"),
+                                technicalskillList, productskillList,
+                                result.getString("u.image"));
+                        employees.add(employee);
+                        technicalskillList = new ArrayList<TechnicalSkill>();
+                        productskillList = new ArrayList<ProductSkill>();
+                    }
+                }
+            }
+        }
+        return employees;
+    }
     @Override
     public List<Employee> findAll() throws SQLException {
         return null;

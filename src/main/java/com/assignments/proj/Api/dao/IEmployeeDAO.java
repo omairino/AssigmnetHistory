@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IEmployeeDAO extends IDAO<Employee> {
     public List<Employee> getEmployeesByManagerID (int managerID,int pageNumber,int limit) throws SQLException;
+    public List<Employee> searchEmployeesBySkillName(String skillName, int pageNumber, int limit) throws SQLException;
+    public List<Employee> getEmployeesByProjectID(int projectid) throws SQLException;
 }
