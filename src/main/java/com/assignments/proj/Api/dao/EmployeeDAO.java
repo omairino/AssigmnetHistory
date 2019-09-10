@@ -29,7 +29,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
         try (Connection conn = db.getConnection()) {
             String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
-                    "as 'manager ID', u.image from users u where manager_id = ?;";
+                    "as 'manager ID', u.image from users u where manager_id = ? limit ?, offset ?;";
             String technicalSkillQuery = " SELECT s.id, s.name FROM users u join employeeskills es on u.id = " +
                     "es.employeeID join skills s on es.skillid = s.id where type = \"TECHNICAL\" and u.id = ? ";
             String productSkillQuery = "SELECT s.id, s.name FROM users u join employeeskills es on u.id = \" +\n" +
@@ -37,6 +37,8 @@ public class EmployeeDAO implements IEmployeeDAO {
 
             try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
                 command.setInt(1, managerID);
+                command.setInt(2, limit);
+                command.setInt(3, offset);
 
                 try (ResultSet result = command.executeQuery()) {
                     while (result.next()) {
