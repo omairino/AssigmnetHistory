@@ -1,30 +1,42 @@
 package com.assignments.proj.Api.model;
 
-import java.sql.Date;
-import java.util.List;
+import com.assignments.proj.Api.exceptions.LevelValidityException;
 
-public class ProjectAndSkill {
-    private int projectID;
-    private int skillID;
+public class projectAndSkill {
+    static private int MAXLEVEL = 5;
+    private int id;
+    private int level;
 
-    public int getProjectID() {
-        return projectID;
+    public projectAndSkill(int id, int level) throws LevelValidityException {
+        this.id = id;
+        if (level <= MAXLEVEL && level > 0) {
+            this.level = level;
+        } else
+            throw new LevelValidityException("level must be maximum 5 and minimum 0");
+
     }
 
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
+    public static int getMAXLEVEL() {
+        return MAXLEVEL;
     }
 
-    public int getSkillID() {
-        return skillID;
+    public static void setMAXLEVEL(int MAXLEVEL) {
+        projectAndSkill.MAXLEVEL = MAXLEVEL;
     }
 
-    public void setSkillID(int skillID) {
-        this.skillID = skillID;
+    public int getId() {
+        return id;
     }
 
-    public ProjectAndSkill(int projectID, int skillID) {
-        this.projectID = projectID;
-        this.skillID = skillID;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }
