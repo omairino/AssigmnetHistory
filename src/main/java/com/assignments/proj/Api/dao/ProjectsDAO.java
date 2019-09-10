@@ -24,7 +24,7 @@ public class ProjectsDAO implements IProjectDAO {
         try (Connection conn = db.getConnection()) {
             String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p";
             String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
-            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
 
 
             try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
@@ -34,6 +34,7 @@ public class ProjectsDAO implements IProjectDAO {
 
                     while (Rs.next()) {
 
+                        //GET technical SKILL FOR EMPLOYEE
                         try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
                             skill.setInt(1, Rs.getInt("p.id"));
 
@@ -42,9 +43,12 @@ public class ProjectsDAO implements IProjectDAO {
                                     TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
                                     technicalSkillList.add(technicalSkill);
                                 }
+                            } catch (SQLException e) {
+                                System.out.println(e);
                             }
                         }
 
+                        //GET PRODUCT SKILL FOR EMPLOYEE
                         try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
                             skill.setInt(1, Rs.getInt("p.id"));
 
@@ -53,6 +57,8 @@ public class ProjectsDAO implements IProjectDAO {
                                     ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
+                            } catch (SQLException e) {
+                                System.out.println(e);
                             }
                         }
                         Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
@@ -86,6 +92,7 @@ public class ProjectsDAO implements IProjectDAO {
 
                     while (Rs.next()) {
 
+                        //GET technical SKILL FOR EMPLOYEE
                         try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
                             skill.setInt(1, Rs.getInt("p.id"));
 
@@ -95,22 +102,22 @@ public class ProjectsDAO implements IProjectDAO {
                                     TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
                                     technicalSkillList.add(technicalSkill);
                                 }
-                            }catch (SQLException e){
+                            } catch (SQLException e) {
                                 System.out.println(e);
                             }
                         }
-
+                        //GET PRODUCT SKILL FOR EMPLOYEE
                         try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
                             ps.setInt(1, Rs.getInt("p.id"));
 
-                            try{
-                            ResultSet psskill = skill.executeQuery();
+                            try {
+                                ResultSet psskill = skill.executeQuery();
                                 while (psskill.next()) {
                                     ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
-                            } catch (SQLException e){
-                                    System.out.println(e);
+                            } catch (SQLException e) {
+                                System.out.println(e);
                             }
                         }
                         Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
