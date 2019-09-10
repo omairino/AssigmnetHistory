@@ -35,7 +35,8 @@ public class EmployeeDAO implements IEmployeeDAO {
                     "as 'manager ID', u.image from users u where manager_id = ?;";
             String technicalSkillQuery = " SELECT s.id, s.name FROM users u join employeeskills es on u.id = " +
                     "es.employeeID join skills s on es.skillid = s.id where type = \"TECHNICAL\" and u.id = ? ";
-            String productSkillQuery = "";
+            String productSkillQuery = "SELECT s.id, s.name FROM users u join employeeskills es on u.id = \" +\n" +
+                    "                    \"es.employeeID join skills s on es.skillid = s.id where type = \\\"PRODUCT\\\" and u.id = ?";
 //            String sqlCommand = "SELECT u.id, concat(u.first_name , \" \" , u.last_name) as name, u. manager_id, u.image,\n" +
 //                    " s.type,  s.name, es.skillid, es.level  from \n" +
 //                    "users u join employeeskills es on u.id=es.employeeID join skills s on s.id=es.skillid" +
@@ -62,9 +63,9 @@ public class EmployeeDAO implements IEmployeeDAO {
                         try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
                             skill.setInt(1, result.getInt("u.id"));
 
-                            try (ResultSet psskill = skill.executeQuery()) {
+                            try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psskill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
                             }
