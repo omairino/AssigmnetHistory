@@ -63,7 +63,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                             skill.setInt(1, result.getInt("u.id"));
 
                             try (ResultSet psSkill = skill.executeQuery()) {
-                                while (psskill.next()) {
+                                while (psSkill.next()) {
                                     ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
