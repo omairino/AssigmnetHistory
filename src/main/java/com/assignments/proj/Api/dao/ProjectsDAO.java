@@ -22,9 +22,9 @@ public class ProjectsDAO implements IProjectDAO {
         List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
 
         try (Connection conn = db.getConnection()) {
-            String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p";
-            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
-            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
+            String projectQuery = "SELECT p.id,p.name,p.start_date,p.description FROM project p";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectskill ps on p.id = ps.project_id join skills s on ps.skill_id = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectskill ps on p.id = ps.project_id join skills s on ps.skill_id = s.id where type = \"PRODUCT\" and p.id = ?";
 
 
             try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
@@ -80,9 +80,9 @@ public class ProjectsDAO implements IProjectDAO {
         List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
 
         try (Connection conn = db.getConnection()) {
-            String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p where managerid = ?";
-            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
-            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
+            String projectQuery = "SELECT p.id,p.name,p.start_date,p.description FROM project p where manager_id = ?";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectskill ps on p.id = ps.project_id join skills s on ps.skill_id = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectskill ps on p.id = ps.project_id join skills s on ps.skill_id = s.id where type = \"PRODUCT\" and p.id = ?";
 
             try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
 
