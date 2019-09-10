@@ -23,8 +23,8 @@ public class ProjectsDAO implements IProjectDAO {
 
         try (Connection conn = db.getConnection()) {
             String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p";
-            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
-            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
 
 
             try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
@@ -81,8 +81,8 @@ public class ProjectsDAO implements IProjectDAO {
 
         try (Connection conn = db.getConnection()) {
             String projectQuery = "SELECT p.id,p.projectname,p.startdate,p.description FROM project p where managerid = ?";
-            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
-            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskills ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
+            String technicalSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"TECHNICAL\" and p.id = ?";
+            String productSkillQuery = "SELECT s.id,s.name FROM project p join projectsskill ps on p.id = ps.projectID join skills s on ps.SkillID = s.id where type = \"PRODUCT\" and p.id = ?";
 
             try (PreparedStatement ps = conn.prepareStatement(projectQuery)) {
 

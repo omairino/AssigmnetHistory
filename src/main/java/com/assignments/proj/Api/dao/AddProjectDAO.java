@@ -39,7 +39,7 @@ public class AddProjectDAO implements IDAO<AddProject> {
                 }
             }
 
-            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID,level)\n" +
+            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectskill (project_id, skill_id,skill_level)\n" +
                     " VALUES (?, ?,?)");
             int sizeSkill = item.getSkills().size();
             for (int i = 0; i < sizeSkill - 1; i++) {
