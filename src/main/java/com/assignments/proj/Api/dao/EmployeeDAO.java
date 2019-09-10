@@ -50,7 +50,6 @@ public class EmployeeDAO implements IEmployeeDAO {
                 try (ResultSet result = command.executeQuery()) {
                     while (result.next()) {
                         try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
-                            // hon mngdrsh nhot bdl result.getInt  -> managerID w5ls?
                             skill.setInt(1, result.getInt("u.id"));
 
                             try (ResultSet tsSkill = skill.executeQuery()) {
@@ -77,7 +76,6 @@ public class EmployeeDAO implements IEmployeeDAO {
                                 technicalSkillList, productSkillList,
                                 result.getString("u.image"));
                         employees.add(employee);
-                        // hay 3mlnaha 3shan njdd llemp aljded?
                         technicalSkillList = new ArrayList<TechnicalSkill>();
                         productSkillList = new ArrayList<ProductSkill>();
 
