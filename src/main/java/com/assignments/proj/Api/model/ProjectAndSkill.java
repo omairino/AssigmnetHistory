@@ -2,17 +2,17 @@ package com.assignments.proj.Api.model;
 
 import com.assignments.proj.Api.exceptions.LevelValidityException;
 
-public class projectAndSkill {
+public class ProjectAndSkill {
     static private int MAXLEVEL = 5;
     private int id;
     private int level;
 
-    public projectAndSkill(int id, int level) throws LevelValidityException {
+    public ProjectAndSkill(int id, int level) throws LevelValidityException {
         this.id = id;
         if (level <= MAXLEVEL && level > 0) {
             this.level = level;
         } else
-            throw new LevelValidityException("level must be maximum 5 and minimum 0");
+            throw new LevelValidityException("level must be maximum 5 and minimum 1");
 
     }
 
@@ -21,7 +21,7 @@ public class projectAndSkill {
     }
 
     public static void setMAXLEVEL(int MAXLEVEL) {
-        projectAndSkill.MAXLEVEL = MAXLEVEL;
+        ProjectAndSkill.MAXLEVEL = MAXLEVEL;
     }
 
     public int getId() {

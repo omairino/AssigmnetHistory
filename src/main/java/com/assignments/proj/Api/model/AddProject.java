@@ -9,9 +9,9 @@ public class AddProject {
     private int managerID;
     private String description;
     private Date startDate;
-    private List<Integer> skills = new ArrayList<Integer>();
+    private List<ProjectAndSkill> skills = new ArrayList<ProjectAndSkill>();
 
-    public AddProject(String projectName, int managerID, String description, Date startDate, List<Integer> skills) {
+    public AddProject(String projectName, int managerID, String description, Date startDate, List<ProjectAndSkill> skills) {
         this.projectName = projectName;
         this.managerID = managerID;
         this.description = description;
@@ -51,11 +51,11 @@ public class AddProject {
         this.startDate = startDate;
     }
 
-    public List<Integer> getSkills() {
+    public List<ProjectAndSkill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Integer> skills) {
+    public void setSkills(List<ProjectAndSkill> skills) {
         this.skills = skills;
     }
 }

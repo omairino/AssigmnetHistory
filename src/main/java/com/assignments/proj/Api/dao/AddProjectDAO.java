@@ -39,28 +39,22 @@ public class AddProjectDAO implements IDAO<AddProject> {
                 }
             }
 
-            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID)\n" +
-                    " VALUES (?, ?)");
+            StringBuilder insertProjectSkill = new StringBuilder("INSERT INTO projectsSkills (projectID, SkillID,level)\n" +
+                    " VALUES (?, ?,?)");
             int sizeSkill = item.getSkills().size();
             for (int i = 0; i < sizeSkill - 1; i++) {
-                insertProjectSkill.append(", (?, ?)");
+                insertProjectSkill.append(", (?, ?, ?)");
             }
 
             try (PreparedStatement fetch = conn.prepareStatement(String.valueOf(insertProjectSkill), Statement.RETURN_GENERATED_KEYS)) {
                 int counter = 0;
-                for (int i = 1; i <= sizeSkill * 2; i += 2) {
+                for (int i = 1; i <= sizeSkill*3 ; i += 3) {
                     fetch.setString(i, String.valueOf(projectID));
-                    fetch.setString(i + 1, String.valueOf(item.getSkills().get(counter)));
+                    fetch.setString(i + 1, String.valueOf(item.getSkills().get(counter).getId()));
+                    fetch.setString(i + 2, String.valueOf(item.getSkills().get(counter).getLevel()));
                     ++counter;
                 }
                 fetch.executeUpdate();
-                try (ResultSet generatedID = fetch.getGeneratedKeys()) {
-                    if (generatedID.next())
-                        projectID = generatedID.getInt(1);
-
-                    else
-                        throw new SQLException("Project insertion failed.");
-                }
             }
         }
 
