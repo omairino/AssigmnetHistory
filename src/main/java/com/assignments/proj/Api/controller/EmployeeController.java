@@ -27,9 +27,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/getbyskill")
-    public ResponseEntity<List<Employee>> searchEmployeesBySkillName(@RequestParam String skillName, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        List<Employee> employees = employeeDAO.searchEmployeesBySkillName(skillName, pageNumber,limit);
+    public ResponseEntity<List<Employee>> searchEmployeesBySkillName(@RequestParam int skillID, @RequestParam int pageNumber, @RequestParam int limit) throws SQLException {
+        List<Employee> employees = employeeDAO.searchEmployeesBySkillID(skillID, pageNumber,limit);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
     @GetMapping("/getbyprojectid")

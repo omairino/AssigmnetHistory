@@ -86,7 +86,7 @@ public class EmployeeDAO implements IEmployeeDAO {
     }
 
     @Override
-    public List<Employee> searchEmployeesBySkillName(String skillName, int pageNumber, int limit) throws SQLException{
+    public List<Employee> searchEmployeesBySkillID(int skillID, int pageNumber, int limit) throws SQLException{
         List<Employee> employees = new ArrayList<>();
         List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
         List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
@@ -99,9 +99,9 @@ public class EmployeeDAO implements IEmployeeDAO {
             String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
                     ", u.image from users u limit ? offset ?;";
             String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
-                    "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? and s.name=?; ";
+                    "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? and s.id=?; ";
             String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
-                    "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ? and s.name=?;";
+                    "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ? and s.id=?;";
 
             try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
                 command.setInt(1, limit);
@@ -111,7 +111,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                     while (result.next()) {
                         try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
                             skill.setInt(1, result.getInt("u.id"));
-                            skill.setString(2,skillName);
+                            skill.setInt(2,skillID);
 
                             try (ResultSet tsSkill = skill.executeQuery()) {
                                 while (tsSkill.next()) {
@@ -125,7 +125,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                         }
                         try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
                             skill.setInt(1, result.getInt("u.id"));
-                            skill.setString(2,skillName);
+                            skill.setInt(2,skillID);
 
                             try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psSkill.next()) {
