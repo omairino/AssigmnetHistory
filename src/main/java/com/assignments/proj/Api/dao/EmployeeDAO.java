@@ -7,10 +7,7 @@ import com.assignments.proj.Api.model.TechnicalSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,15 +34,9 @@ public class EmployeeDAO implements IEmployeeDAO {
                     "es.employeeID join skills s on es.skillid = s.id where type = \"TECHNICAL\" and u.id = ? ";
             String productSkillQuery = "SELECT s.id, s.name FROM users u join employeeskills es on u.id = \" +\n" +
                     "                    \"es.employeeID join skills s on es.skillid = s.id where type = \\\"PRODUCT\\\" and u.id = ?";
-//            String sqlCommand = "SELECT u.id, concat(u.first_name , \" \" , u.last_name) as name, u. manager_id, u.image,\n" +
-//                    " s.type,  s.name, es.skillid, es.level  from \n" +
-//                    "users u join employeeskills es on u.id=es.employeeID join skills s on s.id=es.skillid" +
-//                    "where u.employeeid = ? limit ?, offset ?;";
 
             try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
                 command.setInt(1, managerID);
-//                command.setInt(2, limit);
-//                command.setInt(3, offset);
 
                 try (ResultSet result = command.executeQuery()) {
                     while (result.next()) {
@@ -54,9 +45,12 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet tsSkill = skill.executeQuery()) {
                                 while (tsSkill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), 0);
+                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
                                     technicalSkillList.add(technicalSkill);
                                 }
+                            }
+                            catch(SQLException e){
+                                System.out.println(e);
                             }
                         }
                         try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
@@ -64,12 +58,14 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psSkill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), 0);
+                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
                                     productSkillList.add(productSkill);
                                 }
                             }
+                            catch(SQLException e){
+                                System.out.println(e);
+                            }
                         }
-
                         Employee employee = new Employee(result.getInt("u.id"),
                                 result.getInt("u.manager_id"),
                                 result.getString("u.name"),
@@ -84,8 +80,6 @@ public class EmployeeDAO implements IEmployeeDAO {
             }
 
         }
-
-
         return employees;
     }
 
