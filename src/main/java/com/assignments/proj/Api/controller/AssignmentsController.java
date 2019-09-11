@@ -30,15 +30,15 @@ public class AssignmentsController {
         return new ResponseEntity<>(assignmentsDao.add(assignment), HttpStatus.OK);
     }
 
-    @PostMapping("/update/")
-    public ResponseEntity<Assignment> updateAssignment(@RequestBody Assignment assignment) throws SQLException {
-        return new ResponseEntity<>(assignmentsDao.update(assignment), HttpStatus.OK);
-    }
-
-    @PostMapping("/delete/")
-    public ResponseEntity<Assignment> deleteAssignment(@RequestBody Assignment assignment) throws SQLException {
-        return new ResponseEntity<>(assignmentsDao.delete(assignment), HttpStatus.OK);
-    }
+//    @PostMapping("/update/")
+//    public ResponseEntity<Assignment> updateAssignment(@RequestBody Assignment assignment) throws SQLException {
+//        return new ResponseEntity<>(assignmentsDao.update(assignment), HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/delete/")
+//    public ResponseEntity<Assignment> deleteAssignment(@RequestBody Assignment assignment) throws SQLException {
+//        return new ResponseEntity<>(assignmentsDao.delete(assignment), HttpStatus.OK);
+//    }
 
     @GetMapping("/pages")
     public ResponseEntity<JSONObject> getNumberOfPages(@RequestParam int employeeId, @RequestParam int limit) throws SQLException {
