@@ -12,15 +12,26 @@ public class Project {
     private Date startDate;
     private List<Skills> technicalSkill;
     private List<Skills> productSkill;
+    private int managerID;
 
-    public Project(int id, String name, String description, Date startDate, List<Skills> technicalSkill, List<Skills> productSkill) {
+    public Project(int id, String name, String description, Date startDate, List<Skills> technicalSkill, List<Skills> productSkill, int managerID) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.technicalSkill = technicalSkill;
         this.productSkill = productSkill;
+        this.managerID = managerID;
     }
+
+    public int getManagerID() {
+        return managerID;
+    }
+
+    public void setManagerID(int managerID) {
+        this.managerID = managerID;
+    }
+
 
     public int getId() {
         return id;
