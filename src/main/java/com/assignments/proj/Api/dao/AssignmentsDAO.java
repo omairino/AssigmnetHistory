@@ -123,81 +123,73 @@ public class AssignmentsDAO implements AssignmentsCollection {
             }
 
         }
-       if (assignmentsHistory.isEmpty())
+        if (assignmentsHistory.isEmpty())
             throw new ResultsNotFoundException("Couldn't find assignments History");
 
         return null;
     }
 
 
-
     @Override
     public List<Assignment> findAll() throws SQLException {
-        List<Assignment> assignmentsList= new ArrayList<Assignment>();
+        List<Assignment> assignmentsList = new ArrayList<Assignment>();
 
         try (Connection conn = db.getConnection()) {
             String assignmentQuery = "SELECT a.id, a.project_id, a.employee_id, a.start_date, " +
                     "a.end_date, a.request_from_manager_id, a.request_to_manager_id, a.status FROM assignment a";
 
-                try (PreparedStatement command = conn.prepareStatement(assignmentQuery)) {
+            try (PreparedStatement command = conn.prepareStatement(assignmentQuery)) {
 
-                    try (ResultSet result = command.executeQuery()) {
-                        while (result.next()) {
-                            assignmentsList.add(new Assignment(result.getInt("a.id"),
-                                    result.getInt("a.project_id"),
-                                    result.getInt("a.employee_id"),
-                                    result.getDate("a.start_date"),
-                                    result.getDate("a.end_date"),
-                                    result.getInt("a.requested_from_manager_id"),
-                                    result.getInt("a.requested_to_manager_id"),
-                                    result.getString("a.status")));
+                try (ResultSet result = command.executeQuery()) {
+                    while (result.next()) {
+                        assignmentsList.add(new Assignment(result.getInt("a.id"),
+                                result.getInt("a.project_id"),
+                                result.getInt("a.employee_id"),
+                                result.getDate("a.start_date"),
+                                result.getDate("a.end_date"),
+                                result.getInt("a.requested_from_manager_id"),
+                                result.getInt("a.requested_to_manager_id"),
+                                result.getString("a.status")));
 
-                        }
                     }
                 }
-
             }
-            if (assignmentsList.isEmpty())
-                throw new ResultsNotFoundException("Couldn't find assignments List");
 
-            return null;
+        }
+        if (assignmentsList.isEmpty())
+            throw new ResultsNotFoundException("Couldn't find assignments List");
+
+        return null;
     }
 
     @Override
     public Assignment add(Assignment item) throws SQLException {
+        System.out.println(item.getEmployeeID());
         try (Connection conn = db.getConnection()) {
             // fetch project id by name since project is a unique name which
             // guarantees retrieving the appropriate id
-            String projectQuery = "SELECT id FROM project WHERE id = ?";
             String insertQuery = "INSERT INTO assignment (project_id, employee_id, start_date, end_date, requested_from_manager_id," +
                     " requested_to_manager_id, status) VALUES(?, ?, ?, ?, ?, ?,?)";
 
-            try (PreparedStatement fetch = conn.prepareStatement(projectQuery)) {
-                fetch.setString(1, String.valueOf(item.getProjectID()));
-                try (ResultSet resultSet = fetch.executeQuery()) {
-
-                    if (resultSet.next()) {
-                        // preparing a statement that guarantees returning the auto generated id
-                        try (PreparedStatement command = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-                            command.setInt(1, item.getProjectID());
-                            command.setInt(2, item.getEmployeeID());
-                            command.setDate(3, item.getStartDate());
-                            command.setDate(4, item.getEndDate());
-                            command.setInt(5, item.getRequestFromManagerID());
-                            command.setInt(6, item.getRequestToManagerID());
-                            command.setString(7, item.getStatus());
-                            command.executeUpdate();
-                            try (ResultSet generatedID = command.getGeneratedKeys()) {
-                                if (generatedID.next())
-                                    item.setId(generatedID.getInt(1));
-                                else
-                                    throw new SQLException("Assignment insertion failed.");
-                            }
-                        }
-                    } else
-                        throw new BadRequestException("Failed attempt to add an assignment to a non-existent project.");
+            // preparing a statement that guarantees returning the auto generated id
+            try (PreparedStatement command = conn.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                command.setInt(1, item.getProjectID());
+                command.setInt(2, item.getEmployeeID());
+                command.setDate(3, item.getStartDate());
+                command.setDate(4, item.getEndDate());
+                command.setInt(5, item.getRequestFromManagerID());
+                command.setInt(6, item.getRequestToManagerID());
+                command.setString(7, item.getStatus());
+                command.executeUpdate();
+                try (ResultSet generatedID = command.getGeneratedKeys()) {
+                    if (generatedID.next())
+                        item.setId(generatedID.getInt(1));
+                    else
+                        throw new SQLException("Assignment insertion failed.");
                 }
             }
+
+
         }
         return item;
     }
@@ -205,7 +197,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
 
     @Override
     public Assignment update(Assignment item) throws SQLException {
-        return  null;
+        return null;
     }
 
     @Override
@@ -214,12 +206,12 @@ public class AssignmentsDAO implements AssignmentsCollection {
     }
 
     // try (Connection conn = db.getConnection()) {
-       //     String updateQuery = "UPDATE assignment SET startDate = ?, endDate = ?, status = ?, requestedBy = ?;";
+    //     String updateQuery = "UPDATE assignment SET startDate = ?, endDate = ?, status = ?, requestedBy = ?;";
 
-         //   try (PreparedStatement command = conn.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
-           //   command.setDate(1, item.getStartDate());
-             //  command.setDate(2, item.getEndDate());
-               // command.setString(3, item.getStatus());
+    //   try (PreparedStatement command = conn.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
+    //   command.setDate(1, item.getStartDate());
+    //  command.setDate(2, item.getEndDate());
+    // command.setString(3, item.getStatus());
 //                command.setString(4, item.getRequestedBy());
 //
 //                command.executeUpdate();
@@ -232,7 +224,7 @@ public class AssignmentsDAO implements AssignmentsCollection {
 //            }
 //        }
     //    return item;
-  //  }
+    //  }
 
 //    @Override
 //    public Assignment delete(Assignment item) throws SQLException {
