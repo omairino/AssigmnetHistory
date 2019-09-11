@@ -1,9 +1,8 @@
 package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.exceptions.ResultsNotFoundException;
-import com.assignments.proj.Api.model.ProductSkill;
+import com.assignments.proj.Api.model.Skills;
 import com.assignments.proj.Api.model.Project;
-import com.assignments.proj.Api.model.TechnicalSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,8 @@ public class ProjectsDAO implements IProjectDAO {
     @Override
     public List<Project> findAll() throws SQLException {
         List<Project> projectList = new ArrayList<Project>();
-        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
-        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+        List<Skills> technicalSkillList = new ArrayList<Skills>();
+        List<Skills> productSkillList = new ArrayList<Skills>();
 
         try (Connection conn = db.getConnection()) {
             String projectQuery = "SELECT p.id,p.name,p.start_date,p.description FROM project p";
@@ -40,7 +39,7 @@ public class ProjectsDAO implements IProjectDAO {
 
                             try (ResultSet tsskill = skill.executeQuery()) {
                                 while (tsskill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
+                                    Skills technicalSkill = new Skills(tsskill.getInt(1), tsskill.getString(2), 0);
                                     technicalSkillList.add(technicalSkill);
                                 }
                             } catch (SQLException e) {
@@ -54,7 +53,7 @@ public class ProjectsDAO implements IProjectDAO {
 
                             try (ResultSet psskill = skill.executeQuery()) {
                                 while (psskill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    Skills productSkill = new Skills(psskill.getInt(1), psskill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
                             } catch (SQLException e) {
@@ -63,8 +62,8 @@ public class ProjectsDAO implements IProjectDAO {
                         }
                         Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
                         projectList.add(pro2);
-                        technicalSkillList = new ArrayList<TechnicalSkill>();
-                        productSkillList = new ArrayList<ProductSkill>();
+                        technicalSkillList = new ArrayList<Skills>();
+                        productSkillList = new ArrayList<Skills>();
                     }
                 }
             }
@@ -76,8 +75,8 @@ public class ProjectsDAO implements IProjectDAO {
     @Override
     public List<Project> getManagerProjects(int managerId) throws SQLException, ResultsNotFoundException {
         List<Project> projectList = new ArrayList<Project>();
-        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
-        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+        List<Skills> technicalSkillList = new ArrayList<Skills>();
+        List<Skills> productSkillList = new ArrayList<Skills>();
 
         try (Connection conn = db.getConnection()) {
             String projectQuery = "SELECT p.id,p.name,p.start_date,p.description FROM project p where manager_id = ?";
@@ -99,7 +98,7 @@ public class ProjectsDAO implements IProjectDAO {
                             try {
                                 ResultSet tsskill = skill.executeQuery();
                                 while (tsskill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsskill.getInt(1), tsskill.getString(2), 0);
+                                    Skills technicalSkill = new Skills(tsskill.getInt(1), tsskill.getString(2), 0);
                                     technicalSkillList.add(technicalSkill);
                                 }
                             } catch (SQLException e) {
@@ -113,7 +112,7 @@ public class ProjectsDAO implements IProjectDAO {
                             try {
                                 ResultSet psskill = skill.executeQuery();
                                 while (psskill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psskill.getInt(1), psskill.getString(2), 0);
+                                    Skills productSkill = new Skills(psskill.getInt(1), psskill.getString(2), 0);
                                     productSkillList.add(productSkill);
                                 }
                             } catch (SQLException e) {
@@ -122,8 +121,8 @@ public class ProjectsDAO implements IProjectDAO {
                         }
                         Project pro2 = new Project(Rs.getInt(1), Rs.getString(2), Rs.getString(4), Rs.getDate(3), technicalSkillList, productSkillList);
                         projectList.add(pro2);
-                        technicalSkillList = new ArrayList<TechnicalSkill>();
-                        productSkillList = new ArrayList<ProductSkill>();
+                        technicalSkillList = new ArrayList<Skills>();
+                        productSkillList = new ArrayList<Skills>();
                     }
                 }
             }

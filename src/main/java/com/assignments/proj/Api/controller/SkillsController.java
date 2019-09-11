@@ -3,7 +3,7 @@ package com.assignments.proj.Api.controller;
 import com.assignments.proj.Api.dao.EmployeeDAO;
 import com.assignments.proj.Api.dao.SkillDAO;
 import com.assignments.proj.Api.model.AssignmentHistory;
-import com.assignments.proj.Api.model.Skill;
+import com.assignments.proj.Api.model.ListSkills;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +22,8 @@ public class SkillsController {
     private SkillDAO skillsDAO;
 
     @GetMapping("")
-    public ResponseEntity<List<Skill>> getskills() throws SQLException {
-        List<Skill> skills = skillsDAO.findAll();
+    public ResponseEntity<List<ListSkills>> getskills() throws SQLException {
+        List<ListSkills> skills = skillsDAO.findAll();
         return new ResponseEntity<>(skills, HttpStatus.OK);
     }
 }

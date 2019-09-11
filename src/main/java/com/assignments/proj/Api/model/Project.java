@@ -10,10 +10,10 @@ public class Project {
     private String name;
     private String description;
     private Date startDate;
-    private List<TechnicalSkill> technicalSkill;
-    private List<ProductSkill> productSkill;
+    private List<Skills> technicalSkill;
+    private List<Skills> productSkill;
 
-    public Project(int id, String name, String description, Date startDate, List<TechnicalSkill> technicalSkill, List<ProductSkill> productSkill) {
+    public Project(int id, String name, String description, Date startDate, List<Skills> technicalSkill, List<Skills> productSkill) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -54,19 +54,19 @@ public class Project {
         this.startDate = startDate;
     }
 
-    public List<TechnicalSkill> getTechnicalSkill() {
+    public List<Skills> getTechnicalSkill() {
         return technicalSkill;
     }
 
-    public void setTechnicalSkill(List<TechnicalSkill> technicalSkill) {
+    public void setTechnicalSkill(List<Skills> technicalSkill) {
         this.technicalSkill = technicalSkill;
     }
 
-    public List<ProductSkill> getProductSkill() {
+    public List<Skills> getProductSkill() {
         return productSkill;
     }
 
-    public void setProductSkill(List<ProductSkill> productSkill) {
+    public void setProductSkill(List<Skills> productSkill) {
         this.productSkill = productSkill;
     }
 }

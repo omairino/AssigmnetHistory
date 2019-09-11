@@ -8,11 +8,11 @@ public class Employee {
 	private int id;
 	private int managerID;
 	private String name;
-	private List <TechnicalSkill> technicalSkills;
-	private List <ProductSkill> productSkills;
+	private List <Skills> technicalSkills;
+	private List <Skills> productSkills;
 	private String img;
 
-	public Employee(int id, int managerID, String name, List<TechnicalSkill> technicalSkills, List<ProductSkill> productSkills, String img) {
+	public Employee(int id, int managerID, String name, List<Skills> technicalSkills, List<Skills> productSkills, String img) {
 		this.id = id;
 		this.managerID = managerID;
 		this.name = name;
@@ -35,19 +35,19 @@ public class Employee {
 		this.name = name;
 	}
 
-	public List<TechnicalSkill> getTechnicalSkills() {
+	public List<Skills> getTechnicalSkills() {
 		return technicalSkills;
 	}
 
-	public void setTechnicalSkills(List<TechnicalSkill> technicalSkills) {
+	public void setTechnicalSkills(List<Skills> technicalSkills) {
 		this.technicalSkills = technicalSkills;
 	}
 
-	public List<ProductSkill> getProductSkills() {
+	public List<Skills> getProductSkills() {
 		return productSkills;
 	}
 
-	public void setProductSkills(List<ProductSkill> productSkills) {
+	public void setProductSkills(List<Skills> productSkills) {
 		this.productSkills = productSkills;
 	}
 

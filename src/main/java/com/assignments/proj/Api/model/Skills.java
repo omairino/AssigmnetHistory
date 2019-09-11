@@ -1,11 +1,11 @@
 package com.assignments.proj.Api.model;
 
-public class ProductSkill {
+public class Skills {
     private int id;
     private String name;
     private int level;
 
-    public ProductSkill(int id, String name , int level) {
+    public Skills(int id, String name , int level) {
         this.id = id;
         this.name = name;
         this.level = level;

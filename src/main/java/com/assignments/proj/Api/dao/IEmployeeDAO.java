@@ -1,7 +1,6 @@
 package com.assignments.proj.Api.dao;
 
 import com.assignments.proj.Api.model.Employee;
-import com.assignments.proj.Api.model.Skill;
 
 import java.sql.SQLException;
 import java.util.List;

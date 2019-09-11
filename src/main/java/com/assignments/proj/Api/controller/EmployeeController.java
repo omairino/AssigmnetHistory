@@ -1,9 +1,7 @@
 package com.assignments.proj.Api.controller;
 
 import com.assignments.proj.Api.dao.EmployeeDAO;
-import com.assignments.proj.Api.model.Assignment;
 import com.assignments.proj.Api.model.Employee;
-import com.assignments.proj.Api.model.Skill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

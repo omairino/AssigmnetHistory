@@ -17,8 +17,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     @Override
     public List<Employee> getEmployeesByManagerID(int managerID, int pageNumber, int limit) throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
-        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+        List<Skills> technicalSkillList = new ArrayList<Skills>();
+        List<Skills> productSkillList = new ArrayList<Skills>();
 
         if (pageNumber < 1) {
             pageNumber = 1;
@@ -45,7 +45,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet tsSkill = skill.executeQuery()) {
                                 while (tsSkill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+                                    Skills technicalSkill = new Skills(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
                                     technicalSkillList.add(technicalSkill);
                                 }
                             }
@@ -58,7 +58,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psSkill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+                                    Skills productSkill = new Skills(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
                                     productSkillList.add(productSkill);
                                 }
                             }
@@ -72,8 +72,8 @@ public class EmployeeDAO implements IEmployeeDAO {
                                 technicalSkillList, productSkillList,
                                 result.getString("u.image"));
                         employees.add(employee);
-                        technicalSkillList = new ArrayList<TechnicalSkill>();
-                        productSkillList = new ArrayList<ProductSkill>();
+                        technicalSkillList = new ArrayList<Skills>();
+                        productSkillList = new ArrayList<Skills>();
 
                     }
                 }
@@ -86,8 +86,8 @@ public class EmployeeDAO implements IEmployeeDAO {
     @Override
     public List<Employee> searchEmployeesBySkillID(int skillID, int pageNumber, int limit) throws SQLException{
         List<Employee> employees = new ArrayList<>();
-        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
-        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+        List<Skills> technicalSkillList = new ArrayList<Skills>();
+        List<Skills> productSkillList = new ArrayList<Skills>();
 
         if (pageNumber < 1) {
             pageNumber = 1;
@@ -113,7 +113,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet tsSkill = skill.executeQuery()) {
                                 while (tsSkill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+                                    Skills technicalSkill = new Skills(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
                                     technicalSkillList.add(technicalSkill);
                                 }
                             }
@@ -127,7 +127,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
                             try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psSkill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+                                    Skills productSkill = new Skills(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
                                     productSkillList.add(productSkill);
                                 }
                             }
@@ -141,8 +141,8 @@ public class EmployeeDAO implements IEmployeeDAO {
                                 technicalSkillList, productSkillList,
                                 result.getString("u.image"));
                         employees.add(employee);
-                        technicalSkillList = new ArrayList<TechnicalSkill>();
-                        productSkillList = new ArrayList<ProductSkill>();
+                        technicalSkillList = new ArrayList<Skills>();
+                        productSkillList = new ArrayList<Skills>();
 
                     }
                 }
@@ -156,8 +156,8 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     public List<Employee> getEmployeesByProjectID(int projectid) throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        List<TechnicalSkill> technicalskillList = new ArrayList<TechnicalSkill>();
-        List<ProductSkill> productskillList = new ArrayList<ProductSkill>();
+        List<Skills> technicalskillList = new ArrayList<Skills>();
+        List<Skills> productskillList = new ArrayList<Skills>();
         try (Connection conn = db.getConnection()) {
             String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
                     ", u.image from users u join assignment a on u.id = a.employee_id where a.project_id = ?";
@@ -173,7 +173,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                             skill.setInt(1, result.getInt("u.id"));
                             try (ResultSet tsSkill = skill.executeQuery()) {
                                 while (tsSkill.next()) {
-                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+                                    Skills technicalSkill = new Skills(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
                                     technicalskillList.add(technicalSkill);
                                 }
                             } catch (SQLException e) {
@@ -184,7 +184,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                             skill.setInt(1, result.getInt("u.id"));
                             try (ResultSet psSkill = skill.executeQuery()) {
                                 while (psSkill.next()) {
-                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+                                    Skills productSkill = new Skills(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
                                     productskillList.add(productSkill);
                                 }
                             } catch (SQLException e) {
@@ -197,8 +197,8 @@ public class EmployeeDAO implements IEmployeeDAO {
                                 technicalskillList, productskillList,
                                 result.getString("u.image"));
                         employees.add(employee);
-                        technicalskillList = new ArrayList<TechnicalSkill>();
-                        productskillList = new ArrayList<ProductSkill>();
+                        technicalskillList = new ArrayList<Skills>();
+                        productskillList = new ArrayList<Skills>();
                     }
                 }
             }
