@@ -14,6 +14,7 @@ public class AssignmentHistory {
     public AssignmentHistory(int id, int projectID, String projectName, Date startDate, Date endDate, int requestFromManagerID, String status) {
         this.id = id;
         this.projectID = projectID;
+
         this.projectName = projectName;
         this.startDate = startDate;
         this.endDate = endDate;
