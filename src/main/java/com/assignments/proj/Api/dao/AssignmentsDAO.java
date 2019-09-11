@@ -65,15 +65,18 @@ public class AssignmentsDAO implements AssignmentsCollection {
         int offset = (currPage - 1) * limit; // index of which row to start retrieving data
 
         try (Connection conn = db.getConnection()) {
-            String sqlCommand = "Select a.id,a.project_id,p.name,a.start_date,a.end_date,a.status,a.requested_from_manager_id" +
-                    " from project p join assignment a \n"
-                    + " on p.id = a.project_id"
-                    + " where a.employee_id = ? limit ? offset ?";
+//            String sqlCommand = "Select a.id,a.project_id,p.name,a.start_date,a.end_date,a.status,a.requested_from_manager_id" +
+//                    " from project p join assignment a \n"
+//                    + " on p.id = a.project_id"
+//                    + " where a.employee_id = ? limit ? offset ?";
+
+            String sqlCommand = "Select a.id, project_id, p.name, a.start_date, a.end_date, a.status, a.requested_from_manager_id\n" +
+                    "                  from assignment a join project p on a.project_id=p.id where employee_id = ? limit ? offset ?";
 
             try (PreparedStatement command = conn.prepareStatement(sqlCommand)) {
                 command.setInt(1, id);
-                command.setInt(2, offset);
-                command.setInt(3, limit);
+                command.setInt(2, limit);
+                command.setInt(3, offset);
 
                 try (ResultSet result = command.executeQuery()) {
                     while (result.next()) {

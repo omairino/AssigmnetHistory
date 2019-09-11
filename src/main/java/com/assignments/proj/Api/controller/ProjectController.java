@@ -35,7 +35,6 @@ public class ProjectController {
 
     @PostMapping("/addproject")
     public ResponseEntity<AddProject> addProject(@RequestBody AddProject project) throws SQLException {
-        System.out.println("aaaaaaaaaa");
         return new ResponseEntity<>(addProjectDAO.add(project), HttpStatus.OK);
     }
 }

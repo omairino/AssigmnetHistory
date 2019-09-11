@@ -1,14 +1,12 @@
 package com.assignments.proj.Api.dao;
 
-import com.assignments.proj.Api.model.Assignment;
-import com.assignments.proj.Api.model.Employee;
-import com.assignments.proj.Api.model.ProductSkill;
-import com.assignments.proj.Api.model.TechnicalSkill;
+import com.assignments.proj.Api.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -207,6 +205,85 @@ public class EmployeeDAO implements IEmployeeDAO {
         }
         return employees;
     }
+
+    @Override
+    public List<Employee> searchEmployeesBySkillSet(List<Integer> skillSet, int pageNumber, int limit) throws SQLException{
+        List<Employee> employees = new ArrayList<>();
+//        List<TechnicalSkill> technicalSkillList = new ArrayList<TechnicalSkill>();
+//        List<ProductSkill> productSkillList = new ArrayList<ProductSkill>();
+//
+//        if (pageNumber < 1) {
+//            pageNumber = 1;
+//        }
+//        int offset = (pageNumber - 1) * limit;
+//
+////        List<int> skillSet2=null;
+////        Iterator iterator = skillSet.iterator();
+////        while(iterator.hasNext()) {
+////            skillSet2.add(iterator.next());
+////        }
+//
+//        try (Connection conn = db.getConnection()) {
+//            String employeeQuery = "select u.id, concat(u.first_name, \" \" , u.last_name) as name, u.manager_id " +
+//                    ", u.image from users u join employeeskill es on u.id=es.user_id" +
+//                    "join skills s on es.skill_id=s.id where skill_id in (?) limit ? offset ?;";
+//            String technicalSkillQuery = " SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = " +
+//                    "es.user_id join skills s on es.skill_id = s.id where type = \"TECHNICAL\" and u.id = ? and s.id in ?; ";
+//            String productSkillQuery = "SELECT s.id, s.name,es.level FROM users u join employeeskill es on u.id = \" +\n" +
+//                    "\"es.user_id join skills s on es.skill_id = s.id where type = \\\"PRODUCT\\\" and u.id = ? and s.id=?;";
+//
+//            try (PreparedStatement command = conn.prepareStatement(employeeQuery)) {
+//                command.setInt(1, limit);
+//                command.setInt(2, offset);
+//
+//                try (ResultSet result = command.executeQuery()) {
+//                    while (result.next()) {
+//                        try (PreparedStatement skill = conn.prepareStatement(technicalSkillQuery)) {
+//                            skill.setInt(1, result.getInt("u.id"));
+////                            skill.setArray(2,conn.createArrayOf("Skill",skillSet));
+//                            skill.setArray(2,skillSet);
+//                            try (ResultSet tsSkill = skill.executeQuery()) {
+//                                while (tsSkill.next()) {
+//                                    TechnicalSkill technicalSkill = new TechnicalSkill(tsSkill.getInt(1), tsSkill.getString(2), tsSkill.getInt(3));
+//                                    technicalSkillList.add(technicalSkill);
+//                                }
+//                            }
+//                            catch(SQLException e){
+//                                System.out.println(e);
+//                            }
+//                        }
+//                        try (PreparedStatement skill = conn.prepareStatement(productSkillQuery)) {
+//                            skill.setInt(1, result.getInt("u.id"));
+//                            skill.setInt(2,skellSet);
+//
+//                            try (ResultSet psSkill = skill.executeQuery()) {
+//                                while (psSkill.next()) {
+//                                    ProductSkill productSkill = new ProductSkill(psSkill.getInt(1), psSkill.getString(2), psSkill.getInt(3));
+//                                    productSkillList.add(productSkill);
+//                                }
+//                            }
+//                            catch(SQLException e){
+//                                System.out.println(e);
+//                            }
+//                        }
+//                        Employee employee = new Employee(result.getInt("u.id"),
+//                                result.getInt("u.manager_id"),
+//                                result.getString("name"),
+//                                technicalSkillList, productSkillList,
+//                                result.getString("u.image"));
+//                        employees.add(employee);
+//                        technicalSkillList = new ArrayList<TechnicalSkill>();
+//                        productSkillList = new ArrayList<ProductSkill>();
+//
+//                    }
+//                }
+//            }
+//
+//        }
+        return employees;
+    }
+
+
     @Override
     public List<Employee> findAll() throws SQLException {
         return null;
